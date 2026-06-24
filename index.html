@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Denmark & Sweden Campervan Trip — Jul 2026</title>
+<style>
+  :root {
+    --bg: #0f1418;
+    --card: #1a2128;
+    --accent: #5fb4e5;
+    --accent2: #f4b860;
+    --text: #e8edf1;
+    --muted: #8fa1ad;
+    --border: #2a333b;
+    --green: #6fcf97;
+  }
+  :root[data-theme="light"] {
+    --bg: #f4f6f8;
+    --card: #ffffff;
+    --accent: #1565a0;
+    --accent2: #9a6516;
+    --text: #1a2128;
+    --muted: #5a6b78;
+    --border: #d8e0e6;
+    --green: #2e9e63;
+  }
+  :root[data-theme="light"] .booking-box { background: #eaf3fb; border-color: #bcdcf2; }
+  :root[data-theme="light"] .note { background: #fbf3e2; border-left-color: #d8a23e; }
+  :root[data-theme="light"] .drive { background: #e8f1fb; border-color: #bcdcf2; color: #155f96; }
+  :root[data-theme="light"] .pill.maps { background: #e3f0fb; border-color: #bcdcf2; color: #155f96; }
+  :root[data-theme="light"] .pill.waze { background: #e3f5ea; border-color: #bfe6cd; color: #1f7a4d; }
+  :root[data-theme="light"] .pill.park { background: #fbf0d8; border-color: #ecd9a6; color: #7a5d14; }
+  :root[data-theme="light"] .expense-box { background: #eef7f0; border-color: #c9e6d3; }
+  :root[data-theme="light"] .chip.active { color: #fff; }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding-bottom: 40px;
+  }
+
+  /* ---- App bar ---- */
+  .appbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+  }
+  .appbar .barbtn {
+    flex: 0 0 auto;
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 10px;
+    height: 38px;
+    padding: 0 12px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .appbar .barbtn.round { width: 38px; padding: 0; justify-content: center; border-radius: 50%; font-size: 1.1rem; }
+  .appbar .bartitle { flex: 1; min-width: 0; font-weight: 700; font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  main { padding: 14px 12px; max-width: 860px; margin: 0 auto; }
+
+  /* ---- Home ---- */
+  .hero { margin-bottom: 14px; }
+  .hero h1 { margin: 0 0 4px; font-size: 1.35rem; }
+  .hero p { margin: 0; color: var(--muted); font-size: 0.85rem; line-height: 1.4; }
+  .summary {
+    display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 4px;
+  }
+  .stat {
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 8px 12px; font-size: 0.8rem; color: var(--muted); flex: 1; min-width: 120px;
+  }
+  .stat b { display: block; color: var(--text); font-size: 1.05rem; margin-top: 2px; }
+
+  .chips { display: flex; gap: 8px; overflow-x: auto; padding: 6px 0 12px; -webkit-overflow-scrolling: touch; }
+  .chip {
+    flex: 0 0 auto; background: var(--card); border: 1px solid var(--border); color: var(--muted);
+    border-radius: 20px; padding: 7px 14px; font-size: 0.82rem; cursor: pointer; white-space: nowrap;
+  }
+  .chip.active { background: var(--accent); border-color: var(--accent); color: #08222f; font-weight: 700; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  @media (min-width: 560px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (min-width: 800px) { .grid { grid-template-columns: repeat(4, 1fr); } }
+
+  .daycard {
+    text-align: left;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 14px;
+    cursor: pointer;
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: transform .08s, border-color .15s;
+  }
+  .daycard:active { transform: scale(0.98); }
+  .daycard:hover { border-color: var(--accent); }
+  .daycard-icon {
+    width: 54px; height: 54px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.8rem; margin-bottom: 4px;
+  }
+  .daycard-meta { font-size: 0.72rem; color: var(--muted); font-weight: 700; letter-spacing: .03em; }
+  .daycard-date { font-size: 0.78rem; color: var(--accent2); font-weight: 600; }
+  .daycard-title { font-size: 0.92rem; font-weight: 600; line-height: 1.25; }
+  .daycard-drive { font-size: 0.74rem; color: var(--muted); margin-top: auto; padding-top: 4px; }
+
+  /* ---- Pre-flight checklist ---- */
+  .checklist-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+    margin: 12px 0 4px; overflow: hidden;
+  }
+  .checklist-head {
+    display: flex; align-items: center; gap: 10px; width: 100%;
+    background: none; border: none; color: var(--text); cursor: pointer;
+    padding: 14px; text-align: left; font: inherit;
+  }
+  .checklist-head .cl-emoji { font-size: 1.5rem; }
+  .checklist-head .cl-title { font-size: 1rem; font-weight: 700; flex: 1; }
+  .checklist-head .cl-count { font-size: 0.8rem; color: var(--muted); font-weight: 600; }
+  .checklist-head .cl-chevron { color: var(--muted); transition: transform .15s; }
+  .checklist-card.open .cl-chevron { transform: rotate(180deg); }
+  .cl-progress { height: 4px; background: var(--border); }
+  .cl-progress > i { display: block; height: 100%; width: 0; background: var(--green); transition: width .2s; }
+  .checklist-body { display: none; padding: 2px 14px 14px; }
+  .checklist-card.open .checklist-body { display: block; }
+  .cl-group { margin-top: 14px; }
+  .cl-group h4 { margin: 0 0 4px; font-size: 0.74rem; text-transform: uppercase; letter-spacing: .05em; color: var(--accent2); }
+  .cl-item {
+    display: flex; align-items: flex-start; gap: 10px; padding: 8px 0;
+    border-top: 1px solid var(--border); cursor: pointer; font-size: 0.9rem; line-height: 1.4;
+  }
+  .cl-group .cl-item:first-of-type { border-top: none; }
+  .cl-item input { margin-top: 2px; width: 17px; height: 17px; flex: 0 0 auto; accent-color: var(--green); cursor: pointer; }
+  .cl-item.done span { color: var(--muted); text-decoration: line-through; }
+  .cl-item a.place { color: var(--accent); font-weight: 600; text-decoration: none; border-bottom: 1px dotted var(--accent); }
+  .cl-reset { margin-top: 14px; background: none; border: 1px solid var(--border); color: var(--muted); border-radius: 8px; padding: 6px 12px; font-size: 0.78rem; cursor: pointer; }
+
+  /* ---- Detail ---- */
+  .detail-hero { display: flex; align-items: center; gap: 14px; margin-bottom: 6px; }
+  .detail-hero .dh-icon {
+    width: 64px; height: 64px; border-radius: 16px; flex: 0 0 auto;
+    display: flex; align-items: center; justify-content: center; font-size: 2.1rem;
+  }
+  .detail-hero .dh-meta { font-size: 0.74rem; color: var(--muted); font-weight: 700; }
+  .detail-hero .dh-date { color: var(--accent2); font-weight: 600; font-size: 0.85rem; }
+  .detail-hero .dh-title { font-size: 1.2rem; font-weight: 700; line-height: 1.2; margin-top: 2px; }
+
+  .section { margin-top: 16px; }
+  .section h3 {
+    font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--accent); margin: 0 0 6px;
+  }
+  .section p, .section li { font-size: 0.93rem; line-height: 1.5; margin: 4px 0; }
+  .section ul { margin: 4px 0 0; padding-left: 20px; }
+  .section a.place { color: var(--accent); font-weight: 600; text-decoration: none; border-bottom: 1px dotted var(--accent); }
+
+  .drive {
+    display: inline-block; margin: 8px 0 2px;
+    background: #1e2a33; border: 1px solid #2f4250; color: #9fd6ff;
+    border-radius: 8px; padding: 5px 11px; font-size: 0.84rem; font-weight: 600;
+  }
+  .leg { font-size: 0.92rem; line-height: 1.45; margin: 6px 0; padding-left: 10px; border-left: 2px solid var(--border); }
+  .pill-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: #25303a; color: var(--text); border: 1px solid var(--border);
+    border-radius: 10px; padding: 9px 13px; font-size: 0.86rem; text-decoration: none; font-weight: 500;
+  }
+  .pill.maps { background: #16364a; border-color: #1f4a64; color: #9fd6ff; }
+  .pill.waze { background: #1d3a2c; border-color: #2c5a40; color: #a6e8c2; }
+  .pill.park { background: #3a3318; border-color: #5a4d20; color: #f4d896; }
+
+  .badge {
+    display: inline-block; background: var(--green); color: #0f1418;
+    font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: 8px;
+    margin-left: 6px; vertical-align: middle;
+  }
+  .badge.warn { background: var(--accent2); }
+  .badge.fest { background: #c792ea; }
+
+  .booking-box {
+    background: #14202a; border: 1px solid #1f4a64; border-radius: 10px;
+    padding: 10px 12px; font-size: 0.86rem; margin-top: 6px;
+  }
+  .booking-box .conf { color: var(--accent2); font-weight: 600; }
+  .note {
+    background: #2a2418; border-left: 3px solid var(--accent2);
+    padding: 8px 12px; border-radius: 6px; font-size: 0.86rem; margin-top: 6px;
+  }
+  .expense-box {
+    background: #16241c; border: 1px solid #244233; border-radius: 10px;
+    padding: 10px 12px; margin-top: 6px; font-size: 0.89rem;
+  }
+  .expense-box .expense-total { color: var(--green); font-weight: 700; }
+  .expense-box ul { margin: 6px 0 0; padding-left: 18px; }
+  .expense-box .expense-note { color: var(--muted); font-size: 0.82rem; margin-top: 6px; }
+
+  .prevnext { display: flex; gap: 10px; margin-top: 22px; }
+  .prevnext button {
+    flex: 1; background: var(--card); border: 1px solid var(--border); color: var(--text);
+    border-radius: 12px; padding: 12px; font-size: 0.85rem; cursor: pointer;
+  }
+  .prevnext button:disabled { opacity: 0.35; cursor: default; }
+
+  .hidden { display: none !important; }
+  footer { text-align: center; color: var(--muted); font-size: 0.75rem; padding: 22px 16px; }
+
+  /* ---- Route map ---- */
+  .map-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin: 12px 0 4px; }
+  .map-head { padding: 12px 14px 8px; font-weight: 700; font-size: 1rem; }
+  .map-head .map-sub { display: block; font-weight: 500; font-size: 0.78rem; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+  #routeMap { height: 380px; width: 100%; background: var(--bg); }
+  .map-legend { padding: 9px 14px; font-size: 0.76rem; color: var(--muted); border-top: 1px solid var(--border); }
+  .route-pin { background: none !important; border: none !important; }
+  .route-pin .rp {
+    position: relative; width: 34px; height: 34px; border-radius: 50%;
+    background: var(--card); border: 2px solid var(--accent);
+    display: flex; align-items: center; justify-content: center; font-size: 1.05rem;
+    box-shadow: 0 1px 5px rgba(0,0,0,.45);
+  }
+  .route-pin .rp b {
+    position: absolute; top: -7px; right: -7px; background: var(--accent); color: #08222f;
+    font-size: 0.6rem; line-height: 1; width: 16px; height: 16px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-weight: 800;
+  }
+  .leaflet-popup-content .map-pop strong { font-size: 0.95rem; }
+  .leaflet-popup-content .map-pop .mp-days { color: #1565a0; font-weight: 700; font-size: 0.76rem; margin: 2px 0; }
+  .leaflet-popup-content .map-pop .mp-note { color: #333; font-size: 0.85rem; }
+  .leaflet-popup-content .map-pop a { display: inline-block; margin-top: 7px; color: #1565a0; font-weight: 700; text-decoration: none; }
+</style>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+
+<div class="appbar">
+  <button id="backBtn" class="barbtn hidden" onclick="showHome()">← All days</button>
+  <div class="bartitle" id="barTitle">🚐 Denmark & Sweden Trip</div>
+  <button id="themeBtn" class="barbtn round" aria-label="Toggle light/dark mode" onclick="toggleTheme()">🌙</button>
+</div>
+
+<main>
+  <section id="home"></section>
+  <section id="detail" class="hidden"></section>
+</main>
+
+<footer>Tap a day for full details · est. expenses exclude prepaid van, flights & festival ticket · place names link to Google Maps</footer>
+
+<script>
+const days = [
+  {
+    date: "Sun, Jul 12 · Day 1",
+    title: "Fly TLV → Berlin, train to Hamburg",
+    drive: "No camper yet — flight + ICE train",
+    legs: [
+      "✈️ EL AL LY2371: TLV 06:20 → BER 09:35 (4h15m). Terminal 3 (TLV) → Terminal 1 (BER). Economy, 1 bag.",
+      "🚆 ICE 800: Berlin → Hamburg 13:35–16:10. Carriage 1, window seat, quiet zone. €80.49.",
+      "🏨 Check in Courtyard by Marriott Hamburg City (3pm)."
+    ],
+    route: { label: "Berlin (BER) → Hamburg city centre", dest: "Adenauerallee 52, Hamburg, Germany" },
+    booking: [
+      { type: "Flight", text: "EL AL LY2371 · TLV 06:20 → BER 09:35", conf: "see email" },
+      { type: "Train", text: "ICE 800 Berlin → Hamburg · 13:35–16:10 · Carriage 1 · €80.49" },
+      { type: "Hotel", text: "Courtyard by Marriott Hamburg City, Adenauerallee 52 · Check-in 3pm", conf: "see email" }
+    ],
+    eat: [
+      { name: "Jing Jing", loc: "Jing Jing restaurant Hamburg", note: "Thai restaurant, named Hamburg's Restaurant of the Year 2025 — Waterloohain 7, book ahead" },
+      { name: "Hobenköök", loc: "Hobenköök Hamburg", note: "artisan food market & farm-to-table in a repurposed warehouse" },
+      { name: "Liberté", loc: "Liberté Hamburg Elbe", note: "French bistro on a ferry dock by the Elbe — mussels & wine, river views" },
+      { name: "Mutterland", loc: "Mutterland Stammhaus Hamburg", note: "beloved German delicatessen + café/restaurant by the Hauptbahnhof — regional produce, open daily till late" },
+      { name: "Juan sin Miedo", loc: "Juan sin Miedo Taqueria Hamburg", note: "Ottensen taqueria — Hamburg's 'Best Newcomer 2025', proper Mexican street tacos" }
+    ],
+    coffee: [
+      { name: "Public Coffee Roasters", loc: "Public Coffee Roasters Hamburg", note: "Hamburg roastery, several locations" },
+      { name: "Copenhagen Coffee Lab", loc: "Copenhagen Coffee Lab Hamburg", note: "Danish specialty chain, multiple Hamburg outposts" },
+      { name: "Elbgold", loc: "Elbgold Schanze Hamburg", note: "Hamburg's best-loved roastery — the Schanze café sits inside the roastery in a big industrial hall" },
+      { name: "Café Knuth", loc: "Café Knuth Ottensen Hamburg", note: "Ottensen institution (20+ yrs) — in-house bakery, all-day breakfast & coffee, Große Rainstraße 21" }
+    ],
+    attractions: [
+      { name: "Miniatur Wunderland", loc: "Miniatur Wunderland Hamburg", note: "world's largest model railway, in the Speicherstadt — book a timed ticket" },
+      { name: "Elbphilharmonie Plaza", loc: "Elbphilharmonie Hamburg", note: "free public viewing platform with harbour panoramas" },
+      { name: "Landungsbrücken & harbour", loc: "Landungsbrücken Hamburg", note: "waterfront promenade, evening stroll, Fischbrötchen" },
+      { name: "Speicherstadt", loc: "Speicherstadt Hamburg", note: "UNESCO red-brick warehouse district with canals" }
+    ],
+    reads: [
+      { name: "That's What She Had — Hamburg", url: "https://thatswhatshehad.com/best-restaurants-hamburg/", note: "a local's 20 favourite Hamburg restaurants" },
+      { name: "Where Goes Rose — Hamburg", url: "https://www.wheregoesrose.com/hamburg-food-coffee-guide/", note: "Hamburg food & coffee guide" }
+    ],
+    notes: [
+      "Land BER 09:35, train departs 13:35 — ~3.5h buffer for immigration, luggage and getting to the station.",
+      "Tomorrow: van pickup 10:00 in Schnelsen (Frohmestraße 59), ~25 min from the hotel."
+    ]
+  },
+  {
+    date: "Mon, Jul 13 · Day 2",
+    title: "Van pickup → cross into Denmark → Ribe",
+    drive: "~3–4 hrs · ~215 km (after 10:00 pickup, via E45)",
+    legs: [
+      "🚐 Van pickup Frohmestraße 59, Hamburg @ 10:00 — orientation, pack & load (~1 hr).",
+      "🛣️ Hamburg → Kruså/Flensburg border (~1.5 hrs) via E45. First time in the van!",
+      "🛣️ Continue → Ribe (~2.5 hrs via E45 toward Esbjerg)."
+    ],
+    route: { label: "Hamburg → Ribe, Denmark (via E45)", dest: "Ribe, Denmark" },
+    booking: [
+      { type: "Campervan pickup", text: "Vantopia TRAVELER · Frohmestraße 59, Hamburg · 10:00 · 17 days, unlimited mileage, Relax insurance (€150 deductible) · €3,661.02" },
+      { type: "Camping — confirmed ✅", text: "Ribe Camping · Pitch 325 (gravel by grass, power incl.) · 13→14 Jul · 265.96 DKK incl. cancellation protection", conf: "booked — ref in email" }
+    ],
+    sleep: { status: "confirmed", text: "<strong>Ribe Camping</strong> ✅ booked — Pitch 325 (gravel beside grass, 13A power). 1.5km from the old town, heated pool + attraction discounts.", coord: { lat: 55.3294, lng: 8.7647 } },
+    services: [
+      { name: "Ribe motorhome service area", loc: "autocamper service Ribe Denmark", note: "free public service point ~500m from the old town, year-round — fresh water + grey/black dump" },
+      { name: "Ribe Camping (Quickstop)", loc: "Ribe Camping Denmark", note: "1.5km from town; service station for fresh water & dump, Quickstop option for short stays" }
+    ],
+    shops: [
+      { name: "Rema 1000 / Føtex, Ribe", loc: "Føtex Ribe", note: "in-town groceries; Føtex has the larger car park" },
+      { name: "Bilka Kolding (hypermarket)", loc: "Bilka Kolding", note: "big hypermarket with huge parking off the E45 if you want a full stock-up" }
+    ],
+    eat: [
+      { name: "Restaurant Weis Stue", loc: "Weis Stue Ribe", note: "1600s half-timbered house, traditional Danish, organic" },
+      { name: "Restaurant Sælhunden", loc: "Sælhunden Ribe", note: "cozy waterfront — schnitzel-style veal, crème brûlée" },
+      { name: "Kolvig", loc: "Kolvig Ribe", note: "fine dining in a former merchants' shed, harbour view" }
+    ],
+    coffee: [
+      { name: "Temper Chokolade", loc: "Temper Chokolade Ribe", note: "locally roasted coffee + house-made hot chocolate" },
+      { name: "Terpager & Co", loc: "Terpager & Co Ribe", note: "good coffee, lovely garden — Mellemdammen 18" }
+    ],
+    attractions: [
+      { name: "Ribe Cathedral & tower", loc: "Ribe Cathedral", note: "climb the 52m tower for views over the marsh" },
+      { name: "Ribe VikingeCenter", loc: "Ribe VikingeCenter", note: "living-history Viking village, populated by costumed 'Vikings' in summer" },
+      { name: "Wadden Sea Centre", loc: "Vadehavscentret Ribe", note: "award-winning museum on the tidal flats — good primer before Rømø" }
+    ],
+    activities: [
+      { name: "Ribe old town & stork nests", note: "Denmark's oldest medieval town — cobblestone streets, stork nests on rooftops" },
+      { name: "Night Watchman Tour", note: "free ~45min evening walk, starts near Weis Stue, summer only" },
+      { name: "🎣 Fly fishing — Ribe Å (sea trout)", note: "the Ribe river is one of West Jutland's classic sea-trout (havørred) rivers, running right through town. Buy the obligatory Danish state fishing licence (<a class='place' href='https://www.fisketegn.dk' target='_blank' rel='noopener'>fisketegn.dk</a>, ~40 DKK/day) + the local Ribe Sportsfiskerforening day ticket. Best early morning / late evening." }
+    ],
+    reads: [
+      { name: "Salt in Our Hair — Jutland", url: "https://www.saltinourhair.com/denmark/denmark-jutland-itinerary/", note: "10-day Denmark west-coast road-trip itinerary" },
+      { name: "Way Out West (Vadehavskysten)", url: "https://www.vadehavskysten.com/way-out-west-culture-campervan", note: "official campervan culture route along the Wadden Sea" }
+    ],
+    notes: [
+      "Big travel day — pickup 10:00 then ~4 hrs of driving. Aim to arrive Ribe late afternoon.",
+      "Ribe Camping booked ✅ — Pitch 325.",
+      "⚠️ Pitch category is '0–5.4 m' but the van is 5.99 m — confirm with Ribe Camping that Pitch 325 fits, or switch to the 5.5–6.9 m length tier."
+    ]
+  },
+  {
+    date: "Tue, Jul 14 · Day 3",
+    title: "Rømø / Mandø — Wadden Sea & seals",
+    drive: "~45 min · ~50 km (Ribe ↔ Rømø)",
+    legs: [ "🛣️ Short drive Ribe → Rømø or Mandø (~30–45 min)." ],
+    route: { label: "Ribe → Rømø (UNESCO Wadden Sea)", dest: "Rømø, Denmark" },
+    sleep: { status: "unconfirmed", text: "Sleep on the island — campervan overnight on Rømø, not booked.", coord: { lat: 55.13, lng: 8.55 } },
+    services: [
+      { name: "Autocamperplads Oasen Rømø", loc: "Autocamperplads Oasen Rømø", note: "218-pitch motorhome site — 3 emptying places + water supplies, open all year" }
+    ],
+    shops: [
+      { name: "Spar / Brugsen, Rømø (Havneby)", loc: "supermarket Havneby Rømø", note: "island basics" },
+      { name: "Rema 1000 / Netto, Skærbæk", loc: "Rema 1000 Skærbæk", note: "larger mainland stores by the causeway — easy parking" }
+    ],
+    attractions: [
+      { name: "Sønderstrand (drive-on beach)", loc: "Sønderstrand Rømø", note: "vast hard-sand beach you can drive the van onto — one of Northern Europe's widest" },
+      { name: "Kommandørgården", loc: "Kommandørgården Rømø", note: "preserved 1700s sea-captain's farmhouse museum" }
+    ],
+    activities: [
+      { name: "Seal safari (Sort Safari / Mandøpigen / Marskture)", note: "boat or mudflat walk to see seals on the sandbanks at low tide. Book online in advance — limited spots, bring waterproofs." },
+      { name: "Mudflat walk / Mandø tractor crossing", note: "tidal-flat walking; the Mandø crossing is only possible at low tide" },
+      { name: "🎣 Fly fishing — Rømø coast (sea trout)", note: "saltwater coastal fly fishing for sea trout off Rømø's shores — no licence beyond the Danish state fisketegn (<a class='place' href='https://www.fisketegn.dk' target='_blank' rel='noopener'>fisketegn.dk</a>) for the open coast. Wade the sandy/weed-edged shorelines; fish the moving tide. Bring stripping basket + intermediate line for the wind." }
+    ],
+    notes: [
+      "⚠️ Check tide tables for Rømø/Mandø NOW — time the day around the low-tide window for the seal safari and any Mandø crossing.",
+      "Confirm the Rømø overnight spot — coastal sites fill in July."
+    ]
+  },
+  {
+    date: "Wed, Jul 15 · Day 4",
+    title: "Ribe → Roskilde — Viking ships & fjord",
+    drive: "~3–3.5 hrs · ~290 km (via Funen & Great Belt Bridge)",
+    legs: [
+      "🛣️ Ribe → cross Funen → Great Belt Bridge → Roskilde (~3–3.5 hrs).",
+      "🍴 Lunch / leg-stretch on Funen — Odense old town.",
+      "⛺ Settle at Roskilde Camping on the fjord — only a 35–40 min hop to Copenhagen tomorrow."
+    ],
+    route: { label: "Ribe → Roskilde (Vigen Strandpark) via Funen & Great Belt Bridge", dest: "Roskilde Camping, Baunehøjvej 7, Roskilde, Denmark" },
+    sleep: { status: "planned", text: "<strong>Roskilde Camping</strong> (Vigen Strandpark) — on Roskilde Fjord, ~4km from the cathedral, fjord views. Solves the Jul 15 gap & shortens tomorrow. Book ahead: <a class='place' href='https://www.roskildecamping.dk/' target='_blank' rel='noopener'>roskildecamping.dk</a>.", coord: { lat: 55.6657, lng: 12.0636 } },
+    services: [
+      { name: "Top up at Ribe before leaving", loc: "autocamper service Ribe Denmark", note: "fill fresh water / empty tanks before the long drive east" },
+      { name: "Roskilde Camping service point", loc: "Roskilde Camping Denmark", note: "fresh water + grey/black dump on-site" }
+    ],
+    shops: [
+      { name: "Bilka Odense (hypermarket)", loc: "Bilka Odense", note: "huge hypermarket just off the E20 on Funen — easy resupply + big parking on the way through" }
+    ],
+    eat: [
+      { name: "Storms Pakhus (Odense)", loc: "Storms Pakhus Odense", note: "street-food hall — easy lunch stop on Funen" },
+      { name: "Snekken / Roskilde harbour", loc: "Snekken Roskilde", note: "fjordside dinner by the Viking Ship Museum, near the campsite" }
+    ],
+    coffee: [
+      { name: "Nelle's Coffee (Odense)", loc: "Nelle's Coffee Odense", note: "specialty coffee for the road" },
+      { name: "Gimle / Roskilde cafés", loc: "specialty coffee Roskilde", note: "a coffee stop in Roskilde's old centre" }
+    ],
+    attractions: [
+      { name: "Viking Ship Museum", loc: "Viking Ship Museum Roskilde", note: "five 11th-century Viking longships + an active boatyard on the fjord — unique & hands-on" },
+      { name: "Roskilde Cathedral (UNESCO)", loc: "Roskilde Cathedral", note: "UNESCO brick-Gothic cathedral, burial site of Danish royalty" },
+      { name: "Vigen Strandpark / Roskilde Fjord", loc: "Vigen Strandpark Roskilde", note: "fjord beach by the campsite — swim or rent a SUP with cathedral views" },
+      { name: "Egeskov Castle (Funen, optional)", loc: "Egeskov Castle", note: "moated Renaissance castle + gardens if you want a Funen detour en route" }
+    ],
+    activities: [
+      { name: "Paddle / swim on Roskilde Fjord", note: "easy fjord swim or SUP from Vigen Strandpark — a relaxed end to the drive" },
+      { name: "🎣 Fly fishing — Roskilde Fjord (sea trout)", note: "shallow brackish fjord with good coastal sea-trout wading right off Vigen Strandpark. Only the Danish state fisketegn (<a class='place' href='https://www.fisketegn.dk' target='_blank' rel='noopener'>fisketegn.dk</a>) needed for the open coast — fish the evening rise after you set up camp." }
+    ],
+    notes: [
+      "Great Belt Bridge (Storebæltsbroen) toll applies crossing Funen → Zealand.",
+      "Book Roskilde Camping for tonight. Stock groceries on Funen (Bilka) for the days ahead."
+    ]
+  },
+  {
+    date: "Thu, Jul 16 · Day 5",
+    title: "Roskilde → Copenhagen — check in DCU",
+    drive: "~40 min · ~35 km (Roskilde → Copenhagen), then metro/taxi in the city",
+    legs: [
+      "🛣️ Short hop Roskilde → DCU-Camping Absalon, Rødovre (~40 min). Check in (booking starts today).",
+      "🚇 Metro/taxi into central Copenhagen for the day.",
+      "🔥 Dinner: Goldfinch, 19:00 (Kitchen Bar)."
+    ],
+    route: { label: "Roskilde → DCU-Camping Absalon → central Copenhagen", dest: "DCU-Camping København - Absalon, Korsdalsvej 132, Rødovre, Denmark" },
+    booking: [
+      { type: "Camping — confirmed ✅", text: "DCU-Camping København - Absalon · Pitch 505 · check-in today (16th) → 19th · electricity incl. · 582 DKK due on arrival", conf: "booked — ref in email" },
+      { type: "Dinner — booked ✅ (bump to 2)", text: "Goldfinch · Kongens Nytorv 8 · Thu Jul 16, 19:00 · Kitchen Bar · booked for 1 — change to 2 for Sylvie via the SevenRooms 'manage reservation' link, or info@goldfinch.dk", conf: "booked — ref in email" }
+    ],
+    services: [
+      { name: "DCU-Camping Absalon service point", loc: "DCU-Camping København Absalon", note: "fresh water + grey/black dump on-site — use freely during the Jul 15–19 stay" }
+    ],
+    shops: [
+      { name: "Bilka / Føtex, Rødovre", loc: "Bilka Rødovre", note: "large-format stores at Rødovre Centrum, ~5 min from the campsite, big car parks" },
+      { name: "Netto / Rema 1000 nearby", loc: "Netto Rødovre", note: "quick top-ups close to DCU Absalon" }
+    ],
+    eat: [
+      { name: "Goldfinch (booked ✅ · 19:00 Kitchen Bar)", loc: "Goldfinch Kongens Nytorv Copenhagen", note: "open-fire Cantonese by ex-Geranium chef Will King-Smith — your 19:00 counter seat, party of 1." },
+      { name: "Schønnemann", loc: "Restaurant Schønnemann Copenhagen", note: "iconic lunch-only smørrebrød since 1877 — classic herring + 140 snaps; book ahead" },
+      { name: "ESSE ★", loc: "ESSE restaurant Copenhagen", note: "Matt Orlando's sustainable fine-dining comeback (ex-Amass) — earned a Michelin star in 2026" },
+      { name: "Reffen", loc: "Reffen Copenhagen", note: "casual backup — big street-food market on Refshaleøen" },
+      { name: "Kødbyens Fiskebar", loc: "Kødbyens Fiskebar Copenhagen", note: "excellent seafood in the Meatpacking District" },
+      { name: "Sanchez (optional)", loc: "Sanchez Istedgade 60 Copenhagen", note: "backup option for any Copenhagen night — modern Mexican by Rosio Sánchez. Not booked." }
+    ],
+    coffee: [
+      { name: "La Cabra (Møntergade)", loc: "La Cabra Møntergade Copenhagen", note: "crisp, bright brews + Democratic Coffee pastries" },
+      { name: "Prolog Coffee Bar", loc: "Prolog Coffee Bar Copenhagen", note: "single-origin focus, Vesterbro" }
+    ],
+    attractions: [
+      { name: "Nyhavn", loc: "Nyhavn Copenhagen", note: "iconic colourful harbour — canal-tour boats depart here" },
+      { name: "Tivoli Gardens", loc: "Tivoli Gardens Copenhagen", note: "historic amusement park & gardens in the centre" },
+      { name: "Rosenborg Castle & King's Garden", loc: "Rosenborg Castle Copenhagen", note: "Renaissance castle, crown jewels, lovely park" },
+      { name: "The Little Mermaid", loc: "The Little Mermaid Copenhagen", note: "the famous statue on the Langelinie waterfront" }
+    ],
+    spa: [
+      { name: "CopenHot (outdoor harbour spa)", loc: "CopenHot Copenhagen", note: "Denmark's biggest OUTDOOR spa on Refshaleøen (next to Reffen) — firewood-heated 40°C hot tubs, sauna huts, a 'Dragon Sauna' you stoke yourself, cold-plunge tubs & even sail-your-own floating hot tubs. Booked as private units, 12:30–19:30. Most unique option — book ahead at copenhot.com." },
+      { name: "La Banchina", loc: "La Banchina Copenhagen", note: "cult tiny waterside sauna + harbour plunge by a wine bar — 800 DKK / 1h45 for the whole unit (up to 8), so pricey solo but charming with company." }
+    ],
+    activities: [
+      { name: "Harbour Circle walk", note: "easy waterfront loop — Nyhavn, Kalvebod Bølge, Christianshavn" }
+    ],
+    reads: [
+      { name: "Anders Husa — 50 Places to Eat", url: "https://andershusa.com/50-places-to-eat-in-copenhagen/", note: "Scandinavia's top food blog — the definitive Copenhagen restaurant map" },
+      { name: "Palate Passport (YouTube)", url: "https://www.youtube.com/watch?v=FNiJQ0m98SI", note: "chef-guided Copenhagen food tour" },
+      { name: "Eating Europe — Copenhagen", url: "https://www.eatingeurope.com/blog/best-restaurants-in-copenhagen/", note: "a local's guide to where to eat across the city" }
+    ],
+    notes: [
+      "Dinner: Goldfinch confirmed ✅ — 19:00, Kitchen Bar counter, party of 1.",
+      "Pay the remaining 582 DKK on arrival (if not already done Jul 15)."
+    ]
+  },
+  {
+    date: "Fri, Jul 17 · Day 6",
+    title: "Copenhagen — dinner at Alouette",
+    drive: "Minimal — metro/taxi into the city",
+    route: { label: "DCU-Camping Absalon ↔ central Copenhagen", dest: "Alouette, Kronprinsessegade 8, København, Denmark" },
+    booking: [
+      { type: "Camping", text: "DCU-Camping København - Absalon · Pitch AP 505 · same booking", conf: "booked — ref in email" },
+      { type: "Dinner — booked ✅", text: "Alouette ★ · Kronprinsessegade 8, 1306 København (relocated 2024 — opposite Kongens Have, NOT the old Christianshavn freight-lift address) · Fri Jul 17, 20:30 · Main Dining Room · 1 guest (booked under your email) — Michelin star + Green Star, modern Nordic. Booked via Tock; manage at exploretock.com/restaurantalouette or +45 31 67 66 06. Reschedule up to 2 days before; reservation is transferable.", conf: "—" }
+    ],
+    eat: [
+      { name: "Alouette ★ (booked ✅ · 20:30, 1 guest)", loc: "Alouette Kronprinsessegade Copenhagen", note: "your Jul 17, 20:30 Main Dining Room reservation — Michelin-starred modern Nordic tasting menu. Now at Kronprinsessegade 8 (opposite Kongens Have) since 2024 — no longer the Christianshavn freight-elevator location. Booked for 1 — add Sylvie if she's joining (booking under your email)." },
+      { name: "Kiin Kiin ★", loc: "Kiin Kiin Copenhagen", note: "one of the world's few Michelin-starred Thai restaurants — playful Thai tasting in Nørrebro" },
+      { name: "Restaurant Kronborg", loc: "Restaurant Kronborg Copenhagen", note: "traditional build-your-own smørrebrød lunch in the old centre" },
+      { name: "Sanchez (optional)", loc: "Sanchez Istedgade 60 Copenhagen", note: "backup option for any Copenhagen night — modern Mexican by Rosio Sánchez. No longer booked." }
+    ],
+    coffee: [
+      { name: "Darcy's", loc: "Darcy's Coffee Copenhagen", note: "hygge specialty coffee, three locations" },
+      { name: "Goose Deli", loc: "Goose Deli Copenhagen", note: "sustainable sourcing, newer spot" }
+    ],
+    attractions: [
+      { name: "Rundetårn (Round Tower)", loc: "Rundetaarn Copenhagen", note: "17th-c. tower with a spiral ramp to a city-view rooftop" },
+      { name: "Christiansborg Palace", loc: "Christiansborg Palace Copenhagen", note: "seat of parliament; the tower viewpoint is free" },
+      { name: "Torvehallerne", loc: "Torvehallerne Copenhagen", note: "glass food market — great for lunch & coffee" },
+      { name: "Canal boat tour", loc: "canal tour Nyhavn Copenhagen", note: "1-hr loop past the opera, Mermaid & Christianshavn" }
+    ],
+    activities: [
+      { name: "Amager Fælled / Amarmino trail", note: "from DR Byen Metro into coastal meadows & birdlife — pick a short segment for an easy walk" }
+    ],
+    reads: [
+      { name: "@copenhagen_foodie (Instagram)", url: "https://www.instagram.com/copenhagen_foodie/", note: "Peter Atzen — Copenhagen fine-dining spotting" },
+      { name: "@cofocodk (Instagram)", url: "https://www.instagram.com/cofocodk/", note: "Copenhagen Food Collective — 20 unique restaurants" },
+      { name: "World of Mouth — Copenhagen", url: "https://www.worldofmouth.app/destinations/copenhagen", note: "chef & insider-curated Copenhagen restaurant guide" }
+    ],
+    notes: [
+      "Dinner: Alouette ★ — BOOKED ✅, 20:30, Main Dining Room, 1 guest. Reschedule up to 2 days before; reservation is transferable.",
+      "Sanchez reservation cancelled ✅ — replaced by Alouette.",
+      "Alouette booked for 1 — add Sylvie if she's joining that night.",
+      "Sanchez is now just an optional backup for any Copenhagen night."
+    ]
+  },
+  {
+    date: "Sat, Jul 18 · Day 7",
+    title: "Copenhagen — wildlife day trip",
+    drive: "~30 min each way (or train to Klampenborg)",
+    route: { label: "DCU-Camping Absalon ↔ Klampenborg (train)", dest: "Jægersborg Dyrehave, Klampenborg, Denmark" },
+    booking: [
+      { type: "Camping", text: "DCU-Camping København - Absalon · Pitch AP 505 · check-out morning of Jul 19", conf: "booked — ref in email" }
+    ],
+    eat: [
+      { name: "AOC (booked ✅ — for 2)", loc: "Restaurant AOC Copenhagen", note: "★★ sensory Nordic tasting in the vaulted cellars of 17th-c. Moltkes Palæ — refined & elegant. Booked for 2 (you + Sylvie). 4–7 course or the 'Sensory' 7/10-course menu + wine pairings. ~€270–330pp." },
+      { name: "Gro Spiseri", loc: "Gro Spiseri Copenhagen", note: "communal greenhouse dinner on the ØsterGRO rooftop farm — seasonal & organic, Wed–Sun" },
+      { name: "Koan ★★", loc: "Koan Copenhagen", note: "Kristian Baumann's waterfront two-star (successor to the old 108) — Korean-Nordic; alt fine-dining option" },
+      { name: "Sanchez (optional)", loc: "Sanchez Istedgade 60 Copenhagen", note: "backup option for any Copenhagen night — modern Mexican by Rosio Sánchez. Not booked." }
+    ],
+    coffee: [
+      { name: "20 Grams", loc: "20 Grams Copenhagen", note: "central, highly rated specialty coffee" }
+    ],
+    attractions: [
+      { name: "Louisiana Museum of Modern Art", loc: "Louisiana Museum Humlebæk", note: "world-class modern-art museum with a sea-view sculpture park (~40 min N, towards Klampenborg)" },
+      { name: "Bakken", loc: "Bakken Klampenborg", note: "world's oldest amusement park, right beside the Deer Park" },
+      { name: "Frederiksborg Castle", loc: "Frederiksborg Castle Hillerød", note: "grand Renaissance castle on a lake in Hillerød (optional detour)" }
+    ],
+    activities: [
+      { name: "Jægersborg Deer Park (Dyrehaven)", note: "UNESCO former royal hunting ground — free-roaming deer, easy trails, Eremitage lodge. Train to Klampenborg." },
+      { name: "🎣 Fly fishing — Øresund coast at Klampenborg (sea trout)", note: "the Zealand Øresund shoreline (Bellevue/Skovshoved up to Klampenborg) is some of the world's best coastal sea-trout fly water — and right where the Deer Park train drops you. Only the Danish state fisketegn (<a class='place' href='https://www.fisketegn.dk' target='_blank' rel='noopener'>fisketegn.dk</a>) needed; wade the open coast early morning." }
+    ],
+    reads: [
+      { name: "72hrs in Copenhagen (YouTube)", url: "https://www.youtube.com/watch?v=hBVk6At-XEI", note: "local-style Copenhagen city + food guide" },
+      { name: "@foodguidecph (Instagram)", url: "https://www.instagram.com/foodguidecph/", note: "daily Copenhagen restaurant tips" },
+      { name: "ROADBOOK — 15 best restaurants", url: "https://roadbook.com/copenhagen/city-guide/best-restaurants-copenhagen/", note: "curated 'best restaurants in Copenhagen' city guide" }
+    ],
+    notes: [
+      "Dinner (Jul 18): AOC ★★ — BOOKED for 2 ✅.",
+      "⚠️ Sylvie joining: Goldfinch (16th) & Alouette (17th) are booked for PARTY OF 1 — change them to 2 if she's there those nights.",
+      "Last full day before Sweden — prep & pack the van tonight, check-out is tomorrow morning.",
+      "Top up groceries for Borderland."
+    ]
+  },
+  {
+    date: "Sun, Jul 19 · Day 8",
+    title: "Drive to Sweden — arrive Borderland",
+    drive: "~3.5–4 hrs · ~330 km (via Øresund Bridge)",
+    legs: [
+      "🛣️ Copenhagen → Alversjö (~3.5–4 hrs) via Øresund Bridge. Leave ~08:00–08:30.",
+      "⛺ Arrive Borderland by noon — set up camp, refresh, settle in before the festival starts Jul 20."
+    ],
+    route: { label: "Copenhagen → Alversjö, Eksjö, Sweden via Øresund Bridge", dest: "Alversjö, Eksjö, Sweden" },
+    sleep: { status: "festival", text: "On-site camping at Borderland, Alversjö — part of festival entry.", coord: { lat: 57.63, lng: 14.98 } },
+    services: [
+      { name: "Empty & fill at DCU Absalon", loc: "DCU-Camping København Absalon", note: "do a full dump + fresh-water fill before checkout — services are sparse at the festival" }
+    ],
+    shops: [
+      { name: "ICA Maxi / Willys, Jönköping", loc: "ICA Maxi Jönköping", note: "big Swedish hypermarkets with large lots — last proper resupply before Borderland" },
+      { name: "ICA / Coop, Eksjö", loc: "ICA Eksjö", note: "closest town to Alversjö for final fresh items" }
+    ],
+    attractions: [
+      { name: "Øresund Bridge", loc: "Øresund Bridge", note: "the iconic ~8km bridge-tunnel crossing into Sweden" }
+    ],
+    survival: [
+      { name: "Bring everything — nothing is sold", note: "Borderland is cash-free ('the only currency is play'): no vendors, no shops. Pack ALL your food, drinks & supplies for the whole week before arriving." },
+      { name: "Water for the whole week", note: "No reliable potable water on-site — arrive with the van's fresh tank full PLUS extra jerry cans for drinking, cooking & washing. Bring a filter as backup." },
+      { name: "Layers + rain gear", note: "Swedish summer: ~20°C days but ~10°C nights and likely rain/mud. Pack warm layers, a waterproof jacket and sturdy wet-weather boots." },
+      { name: "Ticks — daily checks", note: "Ticks are everywhere (Lyme + TBE). ✅ You've had the TBE jab — but there's NO Lyme vaccine, so use repellent, cover up in grass/forest, and do a tick check every evening." },
+      { name: "Leave No Trace / MOOP", note: "Pack out everything incl. all trash — 'no one should be able to tell we were there.' Pick up any MOOP (glitter, cigarette butts, tent pegs)." },
+      { name: "Gifting & decommodification", note: "Bring gifts to give freely — no money, no bartering, no selling. Cover or remove visible brand logos." },
+      { name: "Participate — no spectators", note: "It's fully co-created: join in, contribute to a theme camp, help build/strike. Contacting a camp beforehand helps you settle in." },
+      { name: "Consent (the 11th principle)", note: "Always ask before touching or photographing anyone; never share photos of people without permission." },
+      { name: "Camper setup", note: "Confirm the vehicle/camper area & gate hours — vans usually park once and stay put. Arrive with empty waste tanks, a charged leisure battery, and headlamp/lights for the dark forest nights." }
+    ],
+    reads: [
+      { name: "The Indie Projects — Nordics", url: "https://www.vanlifebuilds.com/travel-the-nordics", note: "Bee & Theo's Nordic vanlife guide (YouTube/IG)" },
+      { name: "Visit Sweden — vanlife guide", url: "https://visitsweden.com/what-to-do/vanlife-travel/vanlife-practical-guide/", note: "practical vanlife + allemansrätten (wild-camping) rules" }
+    ],
+    notes: [
+      "Øresund Bridge toll — pay by card or pre-register. Bring passports/ID, it's a border crossing.",
+      "The bridge lands at Malmö, but you stay on the motorway heading north toward Eksjö — no need to stop in the city.",
+      "Borderland ticket/membership confirmed ✅ — keep your membership login handy (no ticket email to fall back on)."
+    ]
+  },
+  {
+    date: "Mon, Jul 20 · Day 9",
+    title: "Borderland Festival begins",
+    drive: "No driving — on-site",
+    route: { label: "On-site, Alversjö — no driving" },
+    sleep: { status: "festival", text: "Borderland Festival camp." },
+    services: [
+      { name: "Eksjö (nearest off-site service)", loc: "tömningsstation Eksjö", note: "Borderland is a leave-no-trace burn — no public dump/water on-site. Arrive with full fresh water & empty tanks. Mid-week, the nearest dump/fill is Eksjö Camping or a Camperclean/husbilsplats.se station in Eksjö (~20 min)" }
+    ],
+    attractions: [
+      { name: "Eksjö old town (rest-day trip)", loc: "Eksjö old town", note: "one of Sweden's best-preserved wooden towns — a calm half-day off the playa" }
+    ],
+    activities: [
+      { name: "Alversjö nature reserve trails", note: "walking trails, lakes, forest & BBQ areas right by the grounds — some paths near the oblong lake are overgrown" }
+    ],
+    notes: [ "Festival begins." ]
+  },
+  { date: "Tue, Jul 21 · Day 10", title: "Borderland Festival", drive: "No driving — on-site", route: { label: "On-site, Alversjö" }, sleep: { status: "festival", text: "Borderland Festival camp." }, notes: ["Optional break from the playa: Skurugata — Småland's largest gorge — plus the Skuruhatt viewpoint, an easy ~2km loop ~20–25 min away (NE of Eksjö)."] },
+  { date: "Wed, Jul 22 · Day 11", title: "Borderland Festival", drive: "No driving — on-site", route: { label: "On-site, Alversjö" }, sleep: { status: "festival", text: "Borderland Festival camp." }, notes: ["Optional reset run: a hot shower + dump/fresh-water fill at Eksjö Camping (~20 min), then top up at ICA Maxi Jönköping on the way back."] },
+  { date: "Thu, Jul 23 · Day 12", title: "Borderland Festival", drive: "No driving — on-site", route: { label: "On-site, Alversjö" }, sleep: { status: "festival", text: "Borderland Festival camp." }, notes: ["Optional nature escape: Norra Kvill National Park — 350-year-old virgin pine forest & lily-covered lakes, ~1 hr toward Vimmerby."] },
+  { date: "Fri, Jul 24 · Day 13", title: "Borderland Festival", drive: "No driving — on-site", route: { label: "On-site, Alversjö" }, sleep: { status: "festival", text: "Borderland Festival camp." }, notes: ["Last full festival day — pace yourself, hydrate, and start a slow pack-down & MOOP sweep. Tomorrow you drive south to Glasriket."] },
+  {
+    date: "Sat, Jul 25 · Day 14",
+    title: "Borderland → Glasriket & Åsnen National Park",
+    drive: "~1.5–2 hrs · ~120 km (south through Småland)",
+    legs: [
+      "🛣️ Alversjö → Kingdom of Crystal / Lake Åsnen (~1.5–2 hrs south through Småland).",
+      "🌅 Drive part of Sirkövägen — one of Småland's prettiest roads through the Åsnen archipelago."
+    ],
+    route: { label: "Alversjö → Åsnen National Park / Glasriket (Småland)", dest: "Åsnen National Park, Sweden" },
+    sleep: { status: "flexible", text: "Lakeside campsite near Åsnen / Urshult or Växjö — use Campercontact/Park4Night.", coord: { lat: 56.62, lng: 14.70 } },
+    services: [
+      { name: "Camping near Åsnen / Växjö", loc: "camping Åsnen Urshult", note: "lakeside sites with water + dump service points" }
+    ],
+    shops: [
+      { name: "ICA Maxi / Willys, Växjö", loc: "ICA Maxi Växjö", note: "big stores with easy parking en route" }
+    ],
+    coffee: [
+      { name: "Bönan & Mustaschen", loc: "Bönan & Mustaschen Växjö", note: "Växjö specialty café focused on beans from small select roasters worldwide" },
+      { name: "PM Bröd & Sovel", loc: "PM Bröd & Sovel Växjö", note: "named Sweden's best café — sourdough, high-class pastries & proper fika in Växjö" }
+    ],
+    attractions: [
+      { name: "Huseby Bruk", loc: "Huseby Bruk", note: "historic ironworks estate with manor, mill & grounds near Åsnen" },
+      { name: "Urshult & Sirkövägen", loc: "Urshult Sweden", note: "scenic village and the island-hopping Sirkövägen road through the archipelago" },
+      { name: "Målerås Glasbruk", loc: "Målerås Glasbruk", note: "Sweden's largest privately owned glassworks (Mats Jonasson) — famous engraved animal reliefs; summer daily tours + blow-your-own" }
+    ],
+    spa: [
+      { name: "Kosta Boda Art Hotel & Spa", loc: "Kosta Boda Art Hotel Spa", note: "right on the Glasriket route — DAY-SPA access available without a room (indoor + outdoor baths, saunas, relaxation, robe/towel incl.). Signature warm-glass massage ~795 SEK/30min (Sat). Book ahead: +46 478-348 43 / spa@kostabodaarthotel.se / kostabodaarthotel.se/en/spa-en. Cashless." },
+      { name: "Ystad Saltsjöbad (sea-view alternative)", loc: "Ystad Saltsjöbad", note: "if you'd prefer a Baltic-front day: indoor/outdoor pools, hot springs/jacuzzi, sauna & massage by the sea — better if you route via the south Skåne coast" }
+    ],
+    activities: [
+      { name: "Glasriket Moose Park safari", note: "tractor-trailer moose safari — get close to (and feed) moose; great wildlife stop" },
+      { name: "Kosta Boda / Kingdom of Crystal", note: "13 glassworks across Småland — watch glass-blowing or try it yourself at Kosta Glass Centre" },
+      { name: "Åsnen National Park", note: "inland lake archipelago — rent a canoe, easy forest trails, 200+ bird species plus beavers & otters" },
+      { name: "🎣 Fly fishing — Mörrumsån (salmon & sea trout)", note: "the legendary Mörrum river drains south out of Lake Åsnen (~45–60 min toward Mörrum) — one of Europe's top salmon & sea-trout fly rivers. Buy a day permit online (<a class='place' href='https://www.morrum.com' target='_blank' rel='noopener'>morrum.com</a>); beats are zoned, summer fishing best early/late. Heavier single-hand or switch rod." },
+      { name: "🎣 Fly fishing — Lake Åsnen (pike on the fly)", note: "right by camp — big-fly pike fishing in the shallow lake bays from a canoe or shoreline. The Swedish 'allemansrätt' allows free fishing on the five largest lakes, but Åsnen needs a local permit — check at the campsite/Urshult." }
+    ],
+    reads: [
+      { name: "Visit Småland — road trip", url: "https://www.visitsmaland.se/en/discover/smaland-roadtrip/", note: "official Småland road-trip route" },
+      { name: "Campervan Sweden — Småland", url: "https://www.campervansweden.com/blog/travel-information/smaland", note: "Småland campervan guide + stops" }
+    ],
+    notes: [
+      "First day after the festival — ease into it with lakes and forest.",
+      "Spa: book a Kosta Boda day-spa entry + a treatment for the afternoon (you arrive from Borderland ~midday) — reserve ahead by phone/email, it's cashless."
+    ]
+  },
+  {
+    date: "Sun, Jul 26 · Day 15",
+    title: "Småland → Kullaberg & the Skåne coast",
+    drive: "~2–2.5 hrs · ~180 km (to NW Skåne)",
+    legs: [ "🛣️ Åsnen/Växjö → Kullaberg peninsula, NW Skåne (~2–2.5 hrs)." ],
+    route: { label: "Åsnen → Kullaberg Nature Reserve / Mölle (NW Skåne)", dest: "Kullaberg Nature Reserve, Mölle, Sweden" },
+    sleep: { status: "flexible", text: "Campsite around Mölle / Höganäs — use Campercontact/Park4Night.", coord: { lat: 56.30, lng: 12.46 } },
+    services: [
+      { name: "Camping Mölle / Höganäs", loc: "camping Mölle Höganäs", note: "coastal sites with water + dump near Kullaberg" }
+    ],
+    shops: [
+      { name: "ICA / Coop, Höganäs", loc: "ICA Höganäs", note: "stock up before the cliffs; easy parking" }
+    ],
+    eat: [
+      { name: "Hotel Kullaberg", loc: "Hotel Kullaberg Mölle restaurant", note: "Mölle seafront bistro — Sweden's largest shrimp sandwich & moules frites; refreshed under new owners in 2025" },
+      { name: "Garage", loc: "Garage Bar Höganäs", note: "rock'n'roll burger joint in Höganäs serving some of Sweden's best burgers" },
+      { name: "Flickorna Lundgren på Skäret", loc: "Flickorna Lundgren Skäret", note: "legendary seaside café founded by seven sisters in 1938 (Skäret, by Arild) — fika with a view; seasonal hours" },
+      { name: "Ransvik Havsveranda", loc: "Ransvik Havsveranda Mölle", note: "organic sea-veranda café a 20-min walk from Mölle harbour — open weekends/summer, check hours" }
+    ],
+    attractions: [
+      { name: "Kullens fyr lighthouse", loc: "Kullens fyr", note: "Scandinavia's brightest lighthouse at the peninsula's tip (1561)" },
+      { name: "Krapperup Castle & gardens", loc: "Krapperup Castle", note: "moated castle with beautiful gardens near Mölle" },
+      { name: "Arild & Mölle villages", loc: "Arild Sweden", note: "picturesque fishing villages for coffee & lunch below the reserve" },
+      { name: "Höganäs ceramics & saluhall", loc: "Höganäs Saluhall", note: "famous stoneware outlets + a food hall" }
+    ],
+    activities: [
+      { name: "Kullaberg Nature Reserve", note: "dramatic cliffs at the tip of the Kulla peninsula — Kullaleden trails, ~20 caves, sweeping sea views" },
+      { name: "Porpoise & seal spotting", note: "one of Sweden's best spots for harbour porpoises; boat safaris run from Mölle" },
+      { name: "🎣 Fly fishing — Kulla peninsula coast (sea trout)", note: "classic Skåne saltwater sea-trout fly fishing along the Öresund/Kattegat shorelines around Mölle, Arild & Lerhamn. No licence needed for the Swedish open coast — wade rocky/weedy points on a moving tide, intermediate line." }
+    ],
+    reads: [
+      { name: "Rucksack.se — Kulla restaurants", url: "https://www.rucksack.se/en/restauranger-pa-kullahalvon/", note: "10 favourite restaurants on the Kulla peninsula" },
+      { name: "Rucksack.se — Kullaberg activities", url: "https://www.rucksack.se/en/aktiviteter-pa-kullaberg-skane/", note: "9 things to do at Kullaberg" }
+    ],
+    notes: [ "Kullaberg is free; follow Leave No Trace. Trails range easy → challenging (the Mölle–Arild headland is ~16km)." ]
+  },
+  {
+    date: "Mon, Jul 27 · Day 16",
+    title: "Skåne → Helsingør ferry → toward Hamburg",
+    drive: "~3 hrs + 20-min Helsingborg–Helsingør ferry (Malmö-free)",
+    legs: [
+      "🛣️ Mölle/Kullaberg → Helsingborg (~30 min).",
+      "⛴️ Helsingborg → Helsingør ferry (Øresundslinjen, ~20 min, very frequent, ~199 DKK/car) — bypasses Malmö entirely.",
+      "🛣️ Helsingør → south through Zealand toward S. Zealand/Falster (or just into Germany) to shorten tomorrow."
+    ],
+    route: { label: "NW Skåne → Helsingborg–Helsingør ferry → southern Denmark", dest: "Helsingør, Denmark" },
+    sleep: { status: "flexible", text: "Campsite on Zealand/Falster or into Schleswig-Holstein — use Campercontact/Park4Night.", coord: { lat: 54.65, lng: 11.35 } },
+    services: [
+      { name: "Camping en route (Skåne / Zealand)", loc: "camping Falster Denmark", note: "service points along the southbound route" }
+    ],
+    shops: [
+      { name: "ICA Maxi, Helsingborg (before the ferry)", loc: "ICA Maxi Helsingborg", note: "last big Swedish shop before the ferry — large parking" }
+    ],
+    coffee: [
+      { name: "Koppi Roasters", loc: "Koppi Roasters Helsingborg", note: "world top-10 roaster (since 2007) by ex-barista champions — a must-stop before the ferry, Helsingborg" },
+      { name: "Bruket Kaffebar", loc: "Bruket Kaffebar Helsingborg", note: "city café on Bruksgatan — specialty coffee + all-day breakfast & bakes" }
+    ],
+    attractions: [
+      { name: "Helsingborg — Kärnan tower", loc: "Kärnan Helsingborg", note: "medieval keep with harbour views, quick stop before the ferry" },
+      { name: "Kronborg Castle (Helsingør)", loc: "Kronborg Castle", note: "Hamlet's UNESCO castle, right where the ferry lands in Denmark" },
+      { name: "Møns Klint (detour)", loc: "Møns Klint", note: "white chalk cliffs on Møn — scenic last-Denmark stop if you route via Zealand" }
+    ],
+    spa: [
+      { name: "Pålsjöbaden (Helsingborg)", loc: "Pålsjöbaden Helsingborg", note: "open-air bathhouse on stilts over the sea with wood saunas & a café — Helsingborg's kallbadhus, ~25 min from Mölle and right by the ferry. Cheap, authentic, Malmö-free." }
+    ],
+    notes: [
+      "Routed via the Helsingborg–Helsingør ferry to avoid Malmö — it's also cheaper than the Øresund Bridge (~199 vs ~455 DKK) and faster from Kullaberg.",
+      "Aim to overnight close enough to make a relaxed run to Hamburg tomorrow."
+    ]
+  },
+  {
+    date: "Tue, Jul 28 · Day 17",
+    title: "Toward Hamburg — last night in the van",
+    drive: "~2.5–3 hrs · ~190 km (incl. Rødby–Puttgarden ferry)",
+    legs: [ "🛣️ Southern Denmark → Hamburg area via Rødby–Puttgarden ferry — easy drive to the return point tomorrow." ],
+    route: { label: "Southern Denmark → Hamburg area", dest: "Hamburg, Germany" },
+    sleep: { status: "flexible", text: "Campsite or hotel near Hamburg — TBD.", coord: { lat: 53.55, lng: 9.99 } },
+    services: [
+      { name: "Free service points: Itzehoe & Wilster (A23)", loc: "Wohnmobil Entsorgung Itzehoe", note: "~50km N of Hamburg on the A23 — two free motorhome service spots (Itzehoe-Süd exit & Wilster) for a final dump + fresh water" }
+    ],
+    shops: [
+      { name: "Kaufland / Famila / Edeka, Hamburg outskirts", loc: "Kaufland Hamburg", note: "large-format stores with easy parking around the city edge" }
+    ],
+    attractions: [
+      { name: "Lübeck old town (UNESCO)", loc: "Lübeck Altstadt", note: "Holstentor gate + marzipan, a gorgeous ~45-min detour off the route to Hamburg" },
+      { name: "Fehmarn island", loc: "Fehmarn", note: "beaches & birdlife right where the ferry lands, if you want a final seaside stop" }
+    ],
+    notes: [ "Last night in the campervan. Stay close enough to make the noon return tomorrow comfortably." ]
+  },
+  {
+    date: "Wed, Jul 29 · Day 18",
+    title: "Return van → train to Berlin → airport hotel",
+    drive: "~30 min to return point, then train (no camper after)",
+    legs: [
+      "🚐 Return Vantopia TRAVELER to Frohmestraße 59 by 12:00 noon (opens 09:00) — return by noon for €39 discount. Check fuel & do a damage walkaround (€150 deductible).",
+      "🚇 Transit Frohmestraße 59 → Hamburg Hbf (~30 min). Arrive ~12:30.",
+      "🚆 ICE Hamburg Hbf → Berlin Hbf (~1h45m). Target ~13:00 dep → arrive ~14:45. Book ahead on bahn.de.",
+      "🚆 FEX Airport Express Berlin Hbf → BER Terminal 1 (~33 min, €5, every 15 min). Target ~15:00 → arrive BER ~15:30.",
+      "🚌 Moxy shuttle from BER: Bus Parking B02, Level E0 — every 30 min, €3.50. Arrive hotel ~16:00."
+    ],
+    route: { label: "Hamburg → Berlin → Moxy Berlin Airport", dest: "Moxy Berlin Airport, Kienberger Allee 2, Schönefeld 12529, Germany" },
+    booking: [
+      { type: "Campervan return", text: "Vantopia TRAVELER · Frohmestraße 59, Hamburg · by 12:00 noon (€39 discount), opens 09:00" },
+      { type: "Hotel", text: "Moxy Berlin Airport, Kienberger Allee 2, Schönefeld 12529 · arrive ~16:00", conf: "see email" }
+    ],
+    services: [
+      { name: "Final empty before van return", loc: "Wohnmobil Entsorgung Hamburg", note: "empty grey & black water before handing back the van — rentals often charge for dirty tanks. Check Vantopia's return tank requirements" }
+    ],
+    notes: [ "Dinner in the evening near the Moxy.", "Book the Hamburg→Berlin ICE in advance for a cheaper fare." ]
+  },
+  {
+    date: "Thu, Jul 30 · Day 19",
+    title: "Fly home",
+    drive: "No camper — flight home",
+    legs: [ "✈️ EL AL LY2372: BER 10:55 → TLV 15:50 (3h55m). Terminal 1 (BER) → Terminal 3 (TLV). Economy, 1 bag." ],
+    route: { label: "Moxy → Berlin Brandenburg (BER)", dest: "Berlin Brandenburg Airport (BER), Germany" },
+    booking: [
+      { type: "Flight", text: "EL AL LY2372 · BER 10:55 → TLV 15:50", conf: "see email" }
+    ],
+    notes: [ "Take the Moxy shuttle back to BER in time for a 10:55 departure — allow for check-in/security." ]
+  }
+];
+
+// Per-day metadata (parallel arrays, same order as `days`)
+const ICONS = ["✈️","🚐","🦭","🚢","🎡","🌮","🦌","🔥","🔥","🔥","🔥","🔥","🔥","🫎","🐬","⛴️","⛴️","🚆","🛫"];
+const COUNTRY = ["DE","DK","DK","DK","DK","DK","DK","SE","SE","SE","SE","SE","SE","SE","SE","DK","DE","DE","DE"];
+const COUNTRY_META = {
+  DE: { flag: "🇩🇪", name: "Germany",  color: "#3a4654" },
+  DK: { flag: "🇩🇰", name: "Denmark",  color: "#9c3326" },
+  SE: { flag: "🇸🇪", name: "Sweden",   color: "#2f5a8c" }
+};
+
+// Rough on-the-road estimates (EUR), one entry per day in the same order as `days`.
+// Excludes prepaid items: campervan (€3,661), flights, ICE Berlin↔Hamburg, hotels paid in advance, Borderland ticket.
+const dayExpenses = [
+  { total: "~€55",  items: ["Dinner ~€30", "City transit ~€10", "Incidentals ~€15"], note: "Hotel & ICE train prepaid" },
+  { total: "~€165", items: ["Fuel ~€60", "Campsite ~€30", "Groceries ~€40", "Dinner ~€35"] },
+  { total: "~€130", items: ["Seal safari ~€40", "Campsite ~€35", "Fuel ~€15", "Food ~€40"] },
+  { total: "~€175", items: ["Fuel ~€55", "Great Belt Bridge toll ~€33", "Roskilde Camping ~€35", "Groceries + lunch ~€50"] },
+  { total: "~€220", items: ["DCU camping balance 582 DKK ~€78", "Goldfinch dinner ~€80", "Metro/taxi ~€15", "Coffee/attraction ~€45"] },
+  { total: "~€135", items: ["Sanchez dinner ~€90", "Transit ~€15", "Coffee ~€10", "Attraction ~€20"] },
+  { total: "~€655", items: ["AOC dinner for 2 ~€600", "Train ~€24", "Louisiana museum ~€40", "Coffee/lunch ~€16"], note: "Now for 2 (Sylvie). If she's in Copenhagen for more than this night, other Day 5–7 costs roughly double too." },
+  { total: "~€175", items: ["Øresund Bridge toll ~€68", "Fuel ~€55", "Festival groceries ~€50"], note: "Borderland ticket prepaid" },
+  { total: "~€15",  items: ["Incidentals ~€15"], note: "Gift economy — bring little/no cash; ticket prepaid" },
+  { total: "~€15",  items: ["Incidentals ~€15"] },
+  { total: "~€15",  items: ["Incidentals ~€15"] },
+  { total: "~€15",  items: ["Incidentals ~€15"] },
+  { total: "~€15",  items: ["Incidentals ~€15"] },
+  { total: "~€140", items: ["Fuel ~€25", "Campsite ~€30", "Moose park ~€20", "Canoe rental ~€25", "Food ~€40"], note: "Add ~€90–150 for a Kosta Boda spa treatment / massage if you book one" },
+  { total: "~€135", items: ["Fuel ~€30", "Campsite ~€30", "Porpoise safari ~€35", "Food ~€40"] },
+  { total: "~€135", items: ["Helsingborg–Helsingør ferry ~€27", "Fuel ~€40", "Campsite ~€30", "Food ~€35"] },
+  { total: "~€220", items: ["Rødby–Puttgarden ferry ~€110", "Fuel ~€30", "Campsite/hotel ~€40", "Food ~€40"], note: "Ferry optional — the all-road route via Jutland avoids it" },
+  { total: "~€150", items: ["Fuel (refill before return) ~€50", "ICE Hamburg→Berlin ~€50", "FEX ~€5", "Moxy shuttle ~€3.50", "Dinner ~€30"], note: "Hotel prepaid" },
+  { total: "~€20",  items: ["Moxy shuttle ~€3.50", "Airport food ~€15"], note: "Flight prepaid" }
+];
+
+// ---------- Route map data ----------
+// Key geographic stops of the loop (some days repeat at one base, so they're grouped).
+const routeStops = [
+  { n: 1,  emoji: "✈️", name: "Hamburg",     lat: 53.5511, lng: 9.9937,  days: "Day 1–2 · 🇩🇪", note: "Fly into Berlin, train to Hamburg · campervan pickup", q: "Hamburg, Germany" },
+  { n: 2,  emoji: "🚐", name: "Ribe",        lat: 55.3299, lng: 8.7660,  days: "Day 2–4 · 🇩🇰", note: "Denmark's oldest town · Wadden Sea base (camping booked)", q: "Ribe, Denmark" },
+  { n: 3,  emoji: "🦭", name: "Rømø",        lat: 55.13,   lng: 8.55,    days: "Day 3 · 🇩🇰",   note: "Drive-on beach · seal safari on the tidal flats", q: "Rømø, Denmark" },
+  { n: 4,  emoji: "🚢", name: "Roskilde",    lat: 55.6657, lng: 12.0636, days: "Day 4 · 🇩🇰",   note: "Viking Ship Museum · fjord camping", q: "Roskilde, Denmark" },
+  { n: 5,  emoji: "🎡", name: "Copenhagen",  lat: 55.6761, lng: 12.5683, days: "Day 5–8 · 🇩🇰", note: "City days · Goldfinch, Alouette & AOC · DCU-Camping Absalon", q: "Copenhagen, Denmark" },
+  { n: 6,  emoji: "🔥", name: "Borderland",  lat: 57.63,   lng: 14.98,   days: "Day 8–14 · 🇸🇪", note: "Festival at Alversjö, Eksjö — gift economy, leave no trace", q: "Alversjö, Eksjö, Sweden" },
+  { n: 7,  emoji: "🫎", name: "Åsnen",       lat: 56.62,   lng: 14.70,   days: "Day 14 · 🇸🇪",  note: "Glasriket & Åsnen National Park · lakes, moose, glass", q: "Åsnen National Park, Sweden" },
+  { n: 8,  emoji: "🐬", name: "Kullaberg",   lat: 56.30,   lng: 12.46,   days: "Day 15 · 🇸🇪",  note: "Mölle · cliffs, lighthouse & porpoise spotting", q: "Kullaberg Nature Reserve, Mölle, Sweden" },
+  { n: 9,  emoji: "⛴️", name: "Helsingør",   lat: 56.0361, lng: 12.6136, days: "Day 16 · 🇩🇰",  note: "Ferry back from Helsingborg · Kronborg Castle", q: "Helsingør, Denmark" },
+  { n: 10, emoji: "🚆", name: "Berlin",      lat: 52.3667, lng: 13.5033, days: "Day 17–19 · 🇩🇪", note: "Via Hamburg (van return) · fly home from BER", q: "Berlin Brandenburg Airport BER" }
+];
+// Ordered path for the route line (traces the actual loop, incl. backtracks).
+const routeLine = [
+  [53.5511, 9.9937],  [55.3299, 8.7660],  [55.13, 8.55],     [55.3299, 8.7660],
+  [55.6657, 12.0636], [55.6761, 12.5683], [57.63, 14.98],    [56.62, 14.70],
+  [56.30, 12.46],     [56.0361, 12.6136], [53.5511, 9.9937], [52.3667, 13.5033]
+];
+
+let routeMap = null, routeTiles = null, drivingGeom = null;
+// Waypoints (lon,lat) for OSRM driving directions — traces the actual loop incl. the return leg via Hamburg.
+const drivingWaypoints = [
+  [9.9937, 53.5511], [8.7660, 55.3299], [8.55, 55.13], [12.0636, 55.6657],
+  [12.5683, 55.6761], [14.98, 57.63], [14.70, 56.62], [12.46, 56.30],
+  [12.6136, 56.0361], [9.9937, 53.5511], [13.5033, 52.3667]
+];
+function mapTileURL() {
+  return document.documentElement.getAttribute('data-theme') === 'light'
+    ? 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png'
+    : 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
+}
+// Draw the road-accurate driving route (OSRM); fall back to straight dashed lines if offline/unavailable.
+function drawDrivingRoute() {
+  if (!routeMap) return;
+  if (drivingGeom) { L.polyline(drivingGeom, { color: '#5fb4e5', weight: 4, opacity: 0.9 }).addTo(routeMap); return; }
+  const fallback = L.polyline(routeLine, { color: '#5fb4e5', weight: 2, opacity: 0.4, dashArray: '7 7' }).addTo(routeMap);
+  const url = 'https://router.project-osrm.org/route/v1/driving/' +
+    drivingWaypoints.map(c => c.join(',')).join(';') + '?overview=full&geometries=geojson';
+  fetch(url).then(r => r.json()).then(d => {
+    if (!d.routes || !d.routes[0] || !routeMap) return;
+    drivingGeom = d.routes[0].geometry.coordinates.map(c => [c[1], c[0]]);
+    L.polyline(drivingGeom, { color: '#5fb4e5', weight: 4, opacity: 0.9 }).addTo(routeMap);
+    routeMap.removeLayer(fallback);
+  }).catch(() => {});
+}
+function initRouteMap() {
+  if (!window.L) return;
+  const el = document.getElementById('routeMap');
+  if (!el) return;
+  if (routeMap) { routeMap.remove(); routeMap = null; }
+  routeMap = L.map(el, { scrollWheelZoom: false });
+  routeTiles = L.tileLayer(mapTileURL(), {
+    attribution: '© OpenStreetMap, © CARTO', subdomains: 'abcd', maxZoom: 18
+  }).addTo(routeMap);
+  drawDrivingRoute();
+  routeStops.forEach(s => {
+    const icon = L.divIcon({ className: 'route-pin', html: `<div class="rp">${s.emoji}<b>${s.n}</b></div>`, iconSize: [34, 34], iconAnchor: [17, 17] });
+    L.marker([s.lat, s.lng], { icon }).addTo(routeMap).bindPopup(
+      `<div class="map-pop"><strong>${s.n}. ${s.name}</strong><div class="mp-days">${s.days}</div>` +
+      `<div class="mp-note">${s.note}</div>` +
+      `<a href="${placeLink(s.q)}" target="_blank" rel="noopener">🗺️ Open in Google Maps</a></div>`
+    );
+  });
+  routeMap.fitBounds(routeStops.map(s => [s.lat, s.lng]), { padding: [30, 30] });
+}
+
+function mapsLink(dest) { return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(dest)}&travelmode=driving`; }
+function wazeLink(dest) { return `https://waze.com/ul?q=${encodeURIComponent(dest)}&navigate=yes`; }
+function placeLink(query) { return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`; }
+function park4nightLink(lat, lng) { return `https://park4night.com/en/search?lat=${lat}&lng=${lng}&zoom=11`; }
+
+function placeList(items) {
+  let h = '<ul>';
+  items.forEach(s => {
+    const name = s.loc ? `<a class="place" href="${placeLink(s.loc)}" target="_blank" rel="noopener">${s.name}</a>` : `<strong>${s.name}</strong>`;
+    h += `<li>${name} — ${s.note}</li>`;
+  });
+  return h + '</ul>';
+}
+
+function dayShortLabel(d) {
+  const day = d.match(/Day \d+/);
+  const dm = d.match(/\w+, (\w+ \d+)/);
+  return { tag: day ? day[0].toUpperCase() : "", date: dm ? dm[1] : d };
+}
+
+// ---------- HOME ----------
+const home = document.getElementById('home');
+const detail = document.getElementById('detail');
+let activeRegion = "ALL";
+
+// ---------- Pre-flight checklist ----------
+const checklist = [
+  { group: "Documents & money", items: [
+    "Passport — valid 6+ months past return (everyone travelling)",
+    "<strong>International Driving Permit</strong> + Israeli licence — carry both; needed at Vantopia pickup",
+    "Confirm Vantopia's exact licence/ID requirements before pickup day",
+    "Travel & health insurance docs (with EU coverage)",
+    "El Al booking (ref saved offline) — online check-in 24h before each flight",
+    "Tell the bank you're travelling — Denmark & Sweden are near-cashless, bring cards",
+    "A little cash — EUR for Germany (DKK/SEK mostly optional)",
+    "Save all confirmations offline — campervan, campsites, restaurants, Borderland ticket"
+  ]},
+  { group: "Bookings to finalise", items: [
+    "Bump <strong>Goldfinch</strong> (Jul 16) & <strong>Alouette</strong> (Jul 17) to 2 if Sylvie's joining",
+    "Confirm Ribe Camping Pitch 325 fits the 5.99 m van",
+    "Book Rømø overnight + Roskilde Camping",
+    "Book seal safari (Rømø) + CopenHot + Kosta Boda spa",
+    "Buy the Hamburg→Berlin ICE in advance for a cheaper fare"
+  ]},
+  { group: "Health & toiletries", items: [
+    "Personal medication + small first-aid kit",
+    "Sunscreen & insect repellent (Wadden Sea, Swedish forest & festival)",
+    "Toiletries + quick-dry towel & swimwear (spas, fjord & lake swims)"
+  ]},
+  { group: "Camper & outdoor gear", items: [
+    "Layers + proper rain gear (coast & Småland can turn cold/wet)",
+    "Headlamp/torch, reusable water bottle, power bank",
+    "EU plug adapters (Type F/K) for charging",
+    "Fly-fishing kit + buy the Danish licence online — <a class='place' href='https://www.fisketegn.dk' target='_blank' rel='noopener'>fisketegn.dk</a>",
+    "Water shoes for the lakes & rivers (wading + rocky/weedy shorelines)",
+    "Borderland gift-economy supplies, costumes & water (see the Day 9 survival list)"
+  ]},
+  { group: "Phone & apps", items: [
+    "EU eSIM or roaming plan activated",
+    "Download offline Google Maps for Denmark & Sweden",
+    "Install Park4Night, DSB (trains) & Tock apps"
+  ]},
+  { group: "Before leaving home", items: [
+    "Arrange transport to TLV airport",
+    "Sort the home — mail, plants, keys, thermostat",
+    "Scan passport, licence, IDP & insurance to the cloud"
+  ]}
+];
+
+const CL_KEY = 'trip-checklist';
+const CL_OPEN_KEY = 'trip-checklist-open';
+const clTotal = checklist.reduce((n, g) => n + g.items.length, 0);
+function clState() { try { return JSON.parse(localStorage.getItem(CL_KEY)) || {}; } catch (e) { return {}; } }
+function clSave(s) { localStorage.setItem(CL_KEY, JSON.stringify(s)); }
+
+function checklistHTML() {
+  const state = clState();
+  const done = Object.values(state).filter(Boolean).length;
+  const pct = clTotal ? Math.round(done / clTotal * 100) : 0;
+  const open = localStorage.getItem(CL_OPEN_KEY) === '1';
+  let body = '';
+  checklist.forEach((g, gi) => {
+    body += `<div class="cl-group"><h4>${g.group}</h4>`;
+    g.items.forEach((it, ii) => {
+      const id = `${gi}-${ii}`;
+      const checked = !!state[id];
+      body += `<label class="cl-item ${checked ? 'done' : ''}">
+        <input type="checkbox" ${checked ? 'checked' : ''} onchange="toggleClItem('${id}', this)">
+        <span>${it}</span></label>`;
+    });
+    body += `</div>`;
+  });
+  body += `<button class="cl-reset" onclick="resetChecklist()">Reset checklist</button>`;
+  return `<div class="checklist-card ${open ? 'open' : ''}" id="checklistCard">
+    <button class="checklist-head" onclick="toggleChecklist()">
+      <span class="cl-emoji">🧳</span>
+      <span class="cl-title">Before you fly — checklist</span>
+      <span class="cl-count" id="clCount">${done}/${clTotal}</span>
+      <span class="cl-chevron">▾</span>
+    </button>
+    <div class="cl-progress"><i id="clBar" style="width:${pct}%"></i></div>
+    <div class="checklist-body">${body}</div>
+  </div>`;
+}
+
+function toggleChecklist() {
+  const card = document.getElementById('checklistCard');
+  const open = card.classList.toggle('open');
+  localStorage.setItem(CL_OPEN_KEY, open ? '1' : '0');
+}
+function toggleClItem(id, el) {
+  const s = clState();
+  if (el.checked) s[id] = true; else delete s[id];
+  clSave(s);
+  const done = Object.values(s).filter(Boolean).length;
+  document.getElementById('clCount').textContent = `${done}/${clTotal}`;
+  document.getElementById('clBar').style.width = (clTotal ? Math.round(done / clTotal * 100) : 0) + '%';
+  el.closest('.cl-item').classList.toggle('done', el.checked);
+}
+function resetChecklist() {
+  if (!confirm('Clear all checklist ticks?')) return;
+  localStorage.removeItem(CL_KEY);
+  localStorage.setItem(CL_OPEN_KEY, '1');
+  renderHome();
+}
+
+function renderHome() {
+  const regions = ["ALL", "DE", "DK", "SE"];
+  let chips = `<div class="chips">`;
+  regions.forEach(r => {
+    const label = r === "ALL" ? "All days" : `${COUNTRY_META[r].flag} ${COUNTRY_META[r].name}`;
+    chips += `<button class="chip ${activeRegion === r ? 'active' : ''}" onclick="setRegion('${r}')">${label}</button>`;
+  });
+  chips += `</div>`;
+
+  let cards = `<div class="grid">`;
+  days.forEach((d, i) => {
+    if (activeRegion !== "ALL" && COUNTRY[i] !== activeRegion) return;
+    const cm = COUNTRY_META[COUNTRY[i]];
+    const sl = dayShortLabel(d.date);
+    cards += `
+      <button class="daycard" onclick="openDay(${i})">
+        <div class="daycard-icon" style="background:${cm.color}22;border:1px solid ${cm.color}55">${ICONS[i]}</div>
+        <div class="daycard-meta">${sl.tag} · ${cm.flag}</div>
+        <div class="daycard-date">${sl.date}</div>
+        <div class="daycard-title">${d.title}</div>
+        <div class="daycard-drive">🕒 ${d.drive}</div>
+      </button>`;
+  });
+  cards += `</div>`;
+
+  home.innerHTML = `
+    <div class="hero">
+      <h1>🚐 Denmark & Sweden Trip</h1>
+      <p>Jul 12–30, 2026 · A 19-day campervan loop: Hamburg → Denmark → Copenhagen → Borderland (Sweden) → back to Berlin.</p>
+    </div>
+    <div class="summary">
+      <div class="stat">Duration<b>19 days</b></div>
+      <div class="stat">Campervan<b>17 days</b></div>
+      <div class="stat">On-road spend<b>~€2,300–2,600</b></div>
+    </div>
+    <div class="map-card">
+      <div class="map-head">🗺️ Route overview
+        <span class="map-sub">The loop: Hamburg → Ribe → Rømø → Roskilde → Copenhagen → Borderland (SE) → Åsnen → Kullaberg → ferry home via Berlin. Tap a pin for details + a Google Maps link.</span>
+      </div>
+      <div id="routeMap"></div>
+      <div class="map-legend">Numbered ① → ⑩ in travel order · dashed line traces the drive</div>
+    </div>
+    ${checklistHTML()}
+    ${chips}
+    ${cards}
+  `;
+  initRouteMap();
+}
+
+function setRegion(r) { activeRegion = r; renderHome(); window.scrollTo(0, 0); }
+
+// ---------- DETAIL ----------
+function dayDetailHTML(day, i) {
+  const cm = COUNTRY_META[COUNTRY[i]];
+  const sl = dayShortLabel(day.date);
+  let html = `
+    <div class="detail-hero">
+      <div class="dh-icon" style="background:${cm.color}22;border:1px solid ${cm.color}55">${ICONS[i]}</div>
+      <div>
+        <div class="dh-meta">${sl.tag} · ${cm.flag} ${cm.name}</div>
+        <div class="dh-date">${sl.date}</div>
+        <div class="dh-title">${day.title}</div>
+      </div>
+    </div>
+  `;
+
+  if (day.route) {
+    html += `<div class="section"><h3>Route</h3><p>${day.route.label}</p>`;
+    if (day.drive) html += `<div class="drive">🕒 Driving: ${day.drive}</div>`;
+    if (day.route.dest) {
+      html += `<div class="pill-row">
+        <a class="pill maps" href="${mapsLink(day.route.dest)}" target="_blank" rel="noopener">🗺️ Google Maps</a>
+        <a class="pill waze" href="${wazeLink(day.route.dest)}" target="_blank" rel="noopener">🚗 Waze</a>
+      </div>`;
+    }
+    html += `</div>`;
+  }
+
+  if (day.legs && day.legs.length) {
+    html += `<div class="section"><h3>Schedule</h3>`;
+    day.legs.forEach(l => { html += `<div class="leg">${l}</div>`; });
+    html += `</div>`;
+  }
+
+  if (day.booking && day.booking.length) {
+    html += `<div class="section"><h3>Bookings</h3>`;
+    day.booking.forEach(b => {
+      html += `<div class="booking-box"><strong>${b.type}:</strong> ${b.text}`;
+      if (b.conf) html += ` <span class="conf">· ${b.conf}</span>`;
+      html += `</div>`;
+    });
+    html += `</div>`;
+  }
+
+  if (day.sleep) {
+    const s = day.sleep.status || '';
+    const badge = s.startsWith('confirmed') ? `<span class="badge">confirmed</span>`
+      : s === 'festival' ? `<span class="badge fest">festival</span>`
+      : s === 'planned' ? `<span class="badge warn">to book</span>`
+      : s === 'flexible' ? `<span class="badge warn">flexible</span>`
+      : `<span class="badge warn">unconfirmed</span>`;
+    html += `<div class="section"><h3>Sleep ${badge}</h3><p>${day.sleep.text}</p>`;
+    if (day.sleep.coord) {
+      html += `<div class="pill-row">
+        <a class="pill park" href="${park4nightLink(day.sleep.coord.lat, day.sleep.coord.lng)}" target="_blank" rel="noopener">🅿️ Park4Night</a>
+      </div>`;
+    }
+    html += `</div>`;
+  }
+
+  if (day.survival && day.survival.length) html += `<div class="section"><h3>🔥 Borderland Survival</h3>${placeList(day.survival)}</div>`;
+  if (day.eat && day.eat.length) html += `<div class="section"><h3>🍽️ Eat</h3>${placeList(day.eat)}</div>`;
+  if (day.coffee && day.coffee.length) html += `<div class="section"><h3>☕ Coffee</h3>${placeList(day.coffee)}</div>`;
+  if (day.services && day.services.length) html += `<div class="section"><h3>🚿 Camper Services · water / dump</h3>${placeList(day.services)}</div>`;
+  if (day.shops && day.shops.length) html += `<div class="section"><h3>🛒 Stock Up · supermarkets</h3>${placeList(day.shops)}</div>`;
+  if (day.attractions && day.attractions.length) html += `<div class="section"><h3>🎡 Attractions & Sights</h3>${placeList(day.attractions)}</div>`;
+  if (day.spa && day.spa.length) html += `<div class="section"><h3>🧖 Spa & Wellness</h3>${placeList(day.spa)}</div>`;
+
+  if (day.activities && day.activities.length) {
+    html += `<div class="section"><h3>🥾 Hikes, Tours & Wildlife</h3><ul>`;
+    day.activities.forEach(act => { html += `<li><strong>${act.name}</strong> — ${act.note}</li>`; });
+    html += `</ul></div>`;
+  }
+
+  if (day.reads && day.reads.length) {
+    html += `<div class="section"><h3>📚 Blogs & Videos</h3><ul>`;
+    day.reads.forEach(r => { html += `<li><a class="place" href="${r.url}" target="_blank" rel="noopener">${r.name}</a> — ${r.note}</li>`; });
+    html += `</ul></div>`;
+  }
+
+  const exp = dayExpenses[i];
+  if (exp) {
+    html += `<div class="section"><h3>💶 Est. Expenses · <span class="expense-total">${exp.total}</span></h3>`;
+    html += `<div class="expense-box"><ul>`;
+    exp.items.forEach(it => { html += `<li>${it}</li>`; });
+    html += `</ul>`;
+    if (exp.note) html += `<div class="expense-note">${exp.note}</div>`;
+    html += `</div></div>`;
+  }
+
+  if (day.notes && day.notes.length) {
+    html += `<div class="section"><h3>📌 Remember</h3>`;
+    day.notes.forEach(n => { html += `<div class="note">${n}</div>`; });
+    html += `</div>`;
+  }
+
+  html += `<div class="prevnext">
+    <button onclick="openDay(${i - 1})" ${i === 0 ? 'disabled' : ''}>← ${i === 0 ? '' : 'Day ' + i}</button>
+    <button onclick="openDay(${i + 1})" ${i === days.length - 1 ? 'disabled' : ''}>${i === days.length - 1 ? '' : 'Day ' + (i + 2)} →</button>
+  </div>`;
+
+  return html;
+}
+
+function openDay(i) {
+  if (i < 0 || i >= days.length) return;
+  detail.innerHTML = dayDetailHTML(days[i], i);
+  home.classList.add('hidden');
+  detail.classList.remove('hidden');
+  document.getElementById('backBtn').classList.remove('hidden');
+  const sl = dayShortLabel(days[i].date);
+  document.getElementById('barTitle').textContent = `${sl.tag} · ${sl.date}`;
+  window.scrollTo(0, 0);
+}
+
+function showHome() {
+  detail.classList.add('hidden');
+  home.classList.remove('hidden');
+  document.getElementById('backBtn').classList.add('hidden');
+  document.getElementById('barTitle').textContent = "🚐 Denmark & Sweden Trip";
+  window.scrollTo(0, 0);
+}
+
+// ---------- Theme ----------
+const rootEl = document.documentElement;
+const themeBtn = document.getElementById('themeBtn');
+if (localStorage.getItem('trip-theme') === 'light') rootEl.setAttribute('data-theme', 'light');
+function syncThemeBtn() { themeBtn.textContent = rootEl.getAttribute('data-theme') === 'light' ? '☀️' : '🌙'; }
+function toggleTheme() {
+  const goLight = rootEl.getAttribute('data-theme') !== 'light';
+  if (goLight) rootEl.setAttribute('data-theme', 'light'); else rootEl.removeAttribute('data-theme');
+  localStorage.setItem('trip-theme', goLight ? 'light' : 'dark');
+  syncThemeBtn();
+  if (routeTiles) routeTiles.setUrl(mapTileURL());
+}
+syncThemeBtn();
+
+renderHome();
+</script>
+
+</body>
+</html>
