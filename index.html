@@ -157,6 +157,9 @@
   .cl-item.done span { color: var(--muted); text-decoration: line-through; }
   .cl-item a.place { color: var(--accent); font-weight: 600; text-decoration: none; border-bottom: 1px dotted var(--accent); }
   .cl-reset { margin-top: 14px; background: none; border: 1px solid var(--border); color: var(--muted); border-radius: 8px; padding: 6px 12px; font-size: 0.78rem; cursor: pointer; }
+  .checklist-body ul { margin: 6px 0 2px; padding-left: 20px; }
+  .checklist-body li { font-size: 0.88rem; line-height: 1.48; margin: 5px 0; }
+  .checklist-body li strong { color: var(--text); }
 
   /* ---- Detail ---- */
   .detail-hero { display: flex; align-items: center; gap: 14px; margin-bottom: 6px; }
@@ -1026,6 +1029,57 @@ function resetChecklist() {
   renderHome();
 }
 
+// ---------- Campervan pickup & pre-drive checks ----------
+const vanChecks = [
+  { group: "At pickup — handover walkaround (do it WITH the Vantopia agent)", items: [
+    "⚠️ <strong>Photograph & video the whole van</strong> before signing — every existing scratch, dent & the interior. Your protection against the €150 deductible.",
+    "⚠️ <strong>Confirm exact size:</strong> length (~5.99 m), height & width — write them on a sticky note for the dash (low bridges, barriers, ferry decks, parking).",
+    "⚠️ <strong>Get the contract permissions in writing:</strong> crossing into <strong>Sweden</strong>, off-grid / festival parking, and whether driving on Rømø's beach is allowed (most rentals forbid sand/off-road).",
+    "<strong>Fresh-water tank capacity (litres)</strong> + how to fill — this decides the Borderland water plan. Confirm grey-water & toilet cassette: where they are and how to empty.",
+    "<strong>Gas:</strong> locate LPG bottle(s), check level, learn the shut-off valve & how to swap a bottle.",
+    "<strong>Leisure (habitation) battery:</strong> current charge, how it recharges (driving / hookup / solar), and how to read the level — critical for off-grid festival nights.",
+    "<strong>Electrics:</strong> CEE hook-up cable + adapters, where the sockets / inverter are, and the fridge's 12V / 230V / gas modes.",
+    "<strong>Heating & hot water:</strong> how to switch on, gas vs electric.",
+    "<strong>Driving basics:</strong> fuel type & required return level, AdBlue, dashboard warning lights, and where the registration, insurance green card & <strong>breakdown number</strong> live (save it in your phone).",
+    "<strong>Safety kit present:</strong> warning triangle(s), hi-vis vests (one per person — legally required), fire extinguisher, first-aid kit, smoke/CO/gas alarms, spare wheel or repair kit + jack.",
+    "<strong>Tyres:</strong> condition + correct pressures when loaded; note where the toolkit is.",
+    "<strong>Show me how it works:</strong> habitation door lock, awning, step, roof vents/skylights, blinds, and the bed conversion. Get all key sets.",
+    "Do a short <strong>test drive</strong> in the yard before you leave — mirrors, biting point, reversing camera, tail-swing."
+  ]},
+  { group: "Before EVERY drive — 60-second pre-roll", items: [
+    "<strong>Gas OFF</strong> at the bottle.",
+    "Roof vents/skylights & windows shut, blinds up, <strong>nothing loose on counters</strong>, fridge switched to 12V.",
+    "Step retracted, <strong>awning in</strong>, external lockers + habitation door locked.",
+    "Electric hook-up unplugged & cable stowed; fresh/waste caps closed.",
+    "Walk a full circle round the van — obstacles, low branches, the height vs any barrier (especially tight pitches).",
+    "Tanks check: grey/black not overfull, enough fresh water for the leg, fuel + AdBlue OK.",
+    "Mirrors set, everyone belted, mind the <strong>overhang & tail-swing</strong> on turns.",
+    "Glance at tyres; no warning lights. Never drive same-day after wine — Sweden's limit is ~0.2‰ (one glass)."
+  ]}
+];
+function vanChecksHTML() {
+  const open = localStorage.getItem('trip-van-open') === '1';
+  let body = '';
+  vanChecks.forEach(g => {
+    body += `<div class="cl-group"><h4>${g.group}</h4><ul>`;
+    g.items.forEach(it => { body += `<li>${it}</li>`; });
+    body += `</ul></div>`;
+  });
+  return `<div class="checklist-card ${open ? 'open' : ''}" id="vanCard">
+    <button class="checklist-head" onclick="toggleVanCard()">
+      <span class="cl-emoji">🚐</span>
+      <span class="cl-title">Campervan — pickup &amp; pre-drive checks</span>
+      <span class="cl-chevron">▾</span>
+    </button>
+    <div class="checklist-body">${body}</div>
+  </div>`;
+}
+function toggleVanCard() {
+  const card = document.getElementById('vanCard');
+  const open = card.classList.toggle('open');
+  localStorage.setItem('trip-van-open', open ? '1' : '0');
+}
+
 function renderHome() {
   const regions = ["ALL", "DE", "DK", "SE"];
   let chips = `<div class="chips">`;
@@ -1069,6 +1123,7 @@ function renderHome() {
       <div class="map-legend">Numbered ① → ⑩ in travel order · dashed line traces the drive</div>
     </div>
     ${checklistHTML()}
+    ${vanChecksHTML()}
     ${chips}
     ${cards}
   `;
