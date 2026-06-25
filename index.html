@@ -450,7 +450,7 @@ const days = [
     route: { label: "Roskilde → DCU-Camping Absalon → central Copenhagen", dest: "DCU-Camping København - Absalon, Korsdalsvej 132, Rødovre, Denmark" },
     booking: [
       { type: "Camping — confirmed ✅", text: "DCU-Camping København - Absalon · Pitch 505 · check-in today (16th) → 19th · electricity incl. · 582 DKK due on arrival", conf: "booked — ref in email" },
-      { type: "Dinner — booked ✅ (bump to 2)", text: "Goldfinch · Kongens Nytorv 8 · Thu Jul 16, 19:00 · Kitchen Bar · booked for 1 — change to 2 for Sylvie via the SevenRooms 'manage reservation' link, or info@goldfinch.dk", conf: "booked — ref in email" }
+      { type: "Dinner — booked ✅", text: "Goldfinch · Kongens Nytorv 8 · Thu Jul 16, 19:00 · Kitchen Bar · party of 1 (Sylvie not joining) — manage via the SevenRooms link, or info@goldfinch.dk", conf: "booked — ref in email" }
     ],
     services: [
       { name: "DCU-Camping Absalon service point", loc: "DCU-Camping København Absalon", note: "fresh water + grey/black dump on-site — use freely during the Jul 15–19 stay" }
@@ -530,7 +530,7 @@ const days = [
     notes: [
       "Dinner: Alouette ★ — BOOKED ✅, 20:30, Main Dining Room, 1 guest. Reschedule up to 2 days before; reservation is transferable.",
       "Sanchez reservation cancelled ✅ — replaced by Alouette.",
-      "Alouette booked for 1 — add Sylvie if she's joining that night.",
+      "Alouette stays party of 1 — Sylvie confirmed not joining Jul 17.",
       "Sanchez is now just an optional backup for any Copenhagen night."
     ]
   },
@@ -567,7 +567,7 @@ const days = [
     ],
     notes: [
       "Dinner (Jul 18): AOC ★★ — BOOKED for 2 ✅.",
-      "⚠️ Sylvie joining: Goldfinch (16th) & Alouette (17th) are booked for PARTY OF 1 — change them to 2 if she's there those nights.",
+      "Sylvie: not joining Jul 16/17 — Goldfinch & Alouette stay party of 1. (She's on the Jul 18 AOC booking for 2.)",
       "Last full day before Sweden — prep & pack the van tonight, check-out is tomorrow morning.",
       "Top up groceries for Borderland."
     ]
@@ -1080,6 +1080,88 @@ function toggleVanCard() {
   localStorage.setItem('trip-van-open', open ? '1' : '0');
 }
 
+// ---------- "Book now" action tracker ----------
+const bookNow = [
+  { group: "🔴 This week — scarce / dated / gating", items: [
+    "<strong>Call Vantopia</strong> — get exact fresh & waste tank capacity, and confirm the contract allows <strong>crossing into Sweden</strong>, festival/off-grid parking, and Rømø beach driving",
+    "<strong>Confirm Ribe Camping pitch 325</strong> fits the 5.99 m van (or switch to the 5.5–6.9 m tier)",
+    "Book the <strong>Rømø overnight</strong> (Day 3) — coastal sites fill in July",
+    "Book the <strong>Rømø seal safari</strong> — limited, tide-dependent spots",
+    "Book <strong>Roskilde Camping</strong> (Day 4) — <a class='place' href='https://www.roskildecamping.dk/' target='_blank' rel='noopener'>roskildecamping.dk</a>",
+    "Book a <strong>Day 17 site near Hamburg</strong> + reserve a specific early <strong>Rødby–Puttgarden ferry</strong> slot",
+    "Book the <strong>Hamburg→Berlin ICE</strong> (Day 18) in advance — <a class='place' href='https://www.bahn.de/' target='_blank' rel='noopener'>bahn.de</a>",
+    "Book <strong>Miniatur Wunderland</strong> timed ticket (Day 1) if you're doing it"
+  ]},
+  { group: "🟠 Decide, then book", items: [
+    "Sylvie <strong>not joining Jul 16/17</strong> ✅ — Goldfinch & Alouette stay party of 1 (AOC Jul 18 is for 2). No change needed.",
+    "Book <strong>CopenHot</strong> spa, Copenhagen — <a class='place' href='https://copenhot.com/' target='_blank' rel='noopener'>copenhot.com</a>",
+    "Book <strong>Kosta Boda</strong> day-spa + a treatment (Day 14) — phone/email, cashless"
+  ]},
+  { group: "🟢 Flexible — can wait / grab a day ahead", items: [
+    "Åsnen lakeside camp (Day 14) — Park4Night / Campercontact",
+    "Kullaberg / Mölle camp (Day 15) — wild/Park4Night fine; book a site only if you want Mölle proper",
+    "Day 16 south Zealand / Falster site — grab a day ahead",
+    "Danish fishing licence — buy a day/week ticket only when you fish (<a class='place' href='https://www.fisketegn.dk' target='_blank' rel='noopener'>fisketegn.dk</a>)"
+  ]},
+  { group: "⭐ Optional upgrades (book ahead if you want them)", items: [
+    "Mölle floating sauna (Day 15)",
+    "A Glasriket glass-studio session, e.g. Kosta or Målerås (Day 14)",
+    "A good last-night dinner near Puttgarden (Day 17)"
+  ]}
+];
+const BN_KEY = 'trip-booknow', BN_OPEN_KEY = 'trip-booknow-open';
+const bnTotal = bookNow.reduce((n, g) => n + g.items.length, 0);
+function bnState() { try { return JSON.parse(localStorage.getItem(BN_KEY)) || {}; } catch (e) { return {}; } }
+function bnSave(s) { localStorage.setItem(BN_KEY, JSON.stringify(s)); }
+function bookNowHTML() {
+  const state = bnState();
+  const done = Object.values(state).filter(Boolean).length;
+  const pct = bnTotal ? Math.round(done / bnTotal * 100) : 0;
+  const open = localStorage.getItem(BN_OPEN_KEY) !== '0'; // default open — it's time-sensitive
+  let body = '';
+  bookNow.forEach((g, gi) => {
+    body += `<div class="cl-group"><h4>${g.group}</h4>`;
+    g.items.forEach((it, ii) => {
+      const id = `${gi}-${ii}`;
+      const checked = !!state[id];
+      body += `<label class="cl-item ${checked ? 'done' : ''}">
+        <input type="checkbox" ${checked ? 'checked' : ''} onchange="toggleBnItem('${id}', this)">
+        <span>${it}</span></label>`;
+    });
+    body += `</div>`;
+  });
+  body += `<button class="cl-reset" onclick="resetBookNow()">Reset</button>`;
+  return `<div class="checklist-card ${open ? 'open' : ''}" id="bookNowCard">
+    <button class="checklist-head" onclick="toggleBookNow()">
+      <span class="cl-emoji">📋</span>
+      <span class="cl-title">Book now — action tracker</span>
+      <span class="cl-count" id="bnCount">${done}/${bnTotal}</span>
+      <span class="cl-chevron">▾</span>
+    </button>
+    <div class="cl-progress"><i id="bnBar" style="width:${pct}%"></i></div>
+    <div class="checklist-body">${body}</div>
+  </div>`;
+}
+function toggleBookNow() {
+  const card = document.getElementById('bookNowCard');
+  const open = card.classList.toggle('open');
+  localStorage.setItem(BN_OPEN_KEY, open ? '1' : '0');
+}
+function toggleBnItem(id, el) {
+  const s = bnState();
+  if (el.checked) s[id] = true; else delete s[id];
+  bnSave(s);
+  const done = Object.values(s).filter(Boolean).length;
+  document.getElementById('bnCount').textContent = `${done}/${bnTotal}`;
+  document.getElementById('bnBar').style.width = (bnTotal ? Math.round(done / bnTotal * 100) : 0) + '%';
+  el.closest('.cl-item').classList.toggle('done', el.checked);
+}
+function resetBookNow() {
+  if (!confirm('Clear all book-now ticks?')) return;
+  localStorage.removeItem(BN_KEY);
+  renderHome();
+}
+
 function renderHome() {
   const regions = ["ALL", "DE", "DK", "SE"];
   let chips = `<div class="chips">`;
@@ -1122,6 +1204,7 @@ function renderHome() {
       <div id="routeMap"></div>
       <div class="map-legend">Numbered ① → ⑩ in travel order · dashed line traces the drive</div>
     </div>
+    ${bookNowHTML()}
     ${checklistHTML()}
     ${vanChecksHTML()}
     ${chips}
