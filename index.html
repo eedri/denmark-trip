@@ -303,28 +303,17 @@ const days = [
       { name: "Café Knuth", loc: "Café Knuth Ottensen Hamburg", note: "Ottensen institution (20+ yrs) — in-house bakery, all-day breakfast & coffee, Große Rainstraße 21" }
     ],
     attractions: [
-      { name: "Miniatur Wunderland", loc: "Miniatur Wunderland Hamburg", note: "world's largest model railway, in the Speicherstadt — book a timed ticket" },
       { name: "Elbphilharmonie Plaza", loc: "Elbphilharmonie Hamburg", note: "free public viewing platform with harbour panoramas" },
       { name: "Landungsbrücken & harbour", loc: "Landungsbrücken Hamburg", note: "waterfront promenade, evening stroll, Fischbrötchen" },
-      { name: "Speicherstadt", loc: "Speicherstadt Hamburg", note: "UNESCO red-brick warehouse district with canals" }
-    ],
-    shows: [
-      { name: "Disney's The Lion King", loc: "Stage Theater im Hafen Hamburg", note: "Hamburg's flagship musical (German), on its own harbour island reached by a little ferry — 25+ years, 11M+ guests. Tue–Sun eves + Sat/Sun matinées, from ~€74. Book ahead." },
-      { name: "MJ – The Michael Jackson Musical", loc: "Stage Theater an der Elbe Hamburg", note: "high-energy Jacko bio-musical at the riverfront Theater an der Elbe" },
-      { name: "Disney's Tarzan", loc: "Stage Theater Neue Flora Hamburg", note: "Disney musical at the Neue Flora (running through ~late 2026)" },
-      { name: "Back to the Future – The Musical", loc: "Stage Operettenhaus Hamburg", note: "the DeLorean musical at the Operettenhaus (opened Mar 2026)" }
-    ],
-    shopping: [
-      { name: "Mono Concept Store (Schanze)", loc: "Mono Concept Store Hamburg", note: "your taste exactly — Scandinavian menswear & streetwear since 2007: Norse Projects, Carhartt WIP, Samsøe & Samsøe. Men's-only Mono Room on Schulterblatt nearby" },
-      { name: "Mojo Store (Karoviertel)", loc: "Mojo Store Hamburg", note: "streetwear temple + atelier between Schanze & Karoviertel — relaxed cuts, oldschool styles" },
-      { name: "Backyard Shop", loc: "Backyard Shop Schanzenstraße Hamburg", note: "classic streetwear + modern basics on Schanzenstraße" },
-      { name: "Schanzenviertel & Karoviertel", loc: "Schulterblatt Hamburg", note: "the two indie shopping quarters — wander Schulterblatt & Marktstraße for boutiques (skip the Mönckebergstraße chains)" }
+      { name: "Speicherstadt", loc: "Speicherstadt Hamburg", note: "UNESCO red-brick warehouse district with canals — a perfect gentle evening stroll from the hotel" }
     ],
     reads: [
       { name: "That's What She Had — Hamburg", url: "https://thatswhatshehad.com/best-restaurants-hamburg/", note: "a local's 20 favourite Hamburg restaurants" },
       { name: "Where Goes Rose — Hamburg", url: "https://www.wheregoesrose.com/hamburg-food-coffee-guide/", note: "Hamburg food & coffee guide" }
     ],
     notes: [
+      "😴 Reality check: ~03:00 wake-up + flight + train means you only reach the hotel ~16:30, wiped. Make Day 1 a gentle arrival — dinner + a short Speicherstadt/Landungsbrücken stroll, not a sightseeing push.",
+      "🍽️ Arrival dinner — keep it close: Mutterland is right by the Hauptbahnhof; Hobenköök is an easy walk toward the Speicherstadt. Save Jing Jing/Liberté (further out) — and the musical, Miniatur Wunderland & Schanze shopping — for your Day 17 evening back in Hamburg.",
       "Land BER 09:35, train departs 13:35 — ~3.5h buffer for immigration, luggage and getting to the station.",
       "Tomorrow: van pickup 10:00 in Schnelsen (Frohmestraße 59), ~25 min from the hotel."
     ]
@@ -795,12 +784,23 @@ const days = [
     ],
     attractions: [
       { name: "Lübeck old town (UNESCO)", loc: "Lübeck Altstadt", note: "Holstentor gate + marzipan, a gorgeous ~45-min detour off the route to Hamburg" },
-      { name: "Fehmarn island", loc: "Fehmarn", note: "beaches & birdlife right where the ferry lands, if you want a final seaside stop" }
+      { name: "Fehmarn island", loc: "Fehmarn", note: "beaches & birdlife right where the ferry lands, if you want a final seaside stop" },
+      { name: "Miniatur Wunderland", loc: "Miniatur Wunderland Hamburg", note: "world's largest model railway, in the Speicherstadt — open late so it fits a Tue evening, and a weekday slot is easier (and less of a sell-out gamble than a Sunday). Book a timed ticket; allow ~2–3 h" }
+    ],
+    shopping: [
+      { name: "Schanzenviertel & Karoviertel", loc: "Schulterblatt Hamburg", note: "the indie shopping quarters — but shops close ~18–20:00, so hit them late-afternoon on arrival, before dinner/show" },
+      { name: "Mono Concept Store (Schanze)", loc: "Mono Concept Store Hamburg", note: "Scandinavian menswear & streetwear — Norse Projects, Carhartt WIP, Samsøe & Samsøe; men's Mono Room nearby on Schulterblatt" },
+      { name: "Mojo Store (Karoviertel)", loc: "Mojo Store Hamburg", note: "streetwear temple + atelier — relaxed cuts & oldschool styles" },
+      { name: "Backyard Shop", loc: "Backyard Shop Schanzenstraße Hamburg", note: "classic streetwear + modern basics on Schanzenstraße" }
     ],
     shows: [
-      { name: "Hamburg musical — last-night option", loc: "Stage Theater im Hafen Hamburg", note: "you're back near Hamburg tonight (Tue) — a great slot for The Lion King, MJ, Tarzan or Back to the Future. Tue–Sun shows; book ahead. (Van goes back tomorrow morning, so park & take transit in.)" }
+      { name: "Tonight's your real Hamburg evening — pick ONE", note: "rested and back near Hamburg (Tue): slot in a musical, OR Miniatur Wunderland, OR a Schanze shopping run + dinner. Don't try to do all of it. (Van goes back tomorrow morning — park & take transit into the city.)" },
+      { name: "Disney's The Lion King", loc: "Stage Theater im Hafen Hamburg", note: "the flagship musical on its own ferry-reached harbour island — Tue shows run; book ahead, premium seats go first" },
+      { name: "MJ – The Michael Jackson Musical", loc: "Stage Theater an der Elbe Hamburg", note: "riverfront Theater an der Elbe" },
+      { name: "Disney's Tarzan", loc: "Stage Theater Neue Flora Hamburg", note: "Neue Flora (through ~late 2026)" },
+      { name: "Back to the Future – The Musical", loc: "Stage Operettenhaus Hamburg", note: "the DeLorean musical at the Operettenhaus" }
     ],
-    notes: [ "Last night in the campervan. Stay close enough to make the noon return tomorrow comfortably." ]
+    notes: [ "🎭 This is your real Hamburg evening — rested and back in the city, unlike the wiped Day-1 arrival. Slot in ONE of: a musical, Miniatur Wunderland, or Schanze shopping + dinner.", "Last night in the campervan. Stay close enough to make the noon return tomorrow comfortably (park & take transit into the city)." ]
   },
   {
     date: "Wed, Jul 29 · Day 18",
@@ -1127,7 +1127,7 @@ const bookNow = [
     "Book <strong>Roskilde Camping</strong> (Day 4) — <a class='place' href='https://www.roskildecamping.dk/' target='_blank' rel='noopener'>roskildecamping.dk</a>",
     "Book a <strong>Day 17 site near Hamburg</strong> + reserve a specific early <strong>Rødby–Puttgarden ferry</strong> slot",
     "Book the <strong>Hamburg→Berlin ICE</strong> (Day 18) in advance — <a class='place' href='https://www.bahn.de/' target='_blank' rel='noopener'>bahn.de</a>",
-    "Book <strong>Miniatur Wunderland</strong> timed ticket (Day 1) if you're doing it"
+    "Book <strong>Miniatur Wunderland</strong> timed ticket (Day 17 evening) if you're doing it"
   ]},
   { group: "🟠 Decide, then book", items: [
     "Sylvie <strong>not joining Jul 16/17</strong> ✅ — Goldfinch & Alouette stay party of 1 (AOC Jul 18 is for 2). No change needed.",
@@ -1145,7 +1145,7 @@ const bookNow = [
     "A Glasriket glass-studio session, e.g. Kosta or Målerås (Day 14)",
     "A good last-night dinner near Puttgarden (Day 17)",
     "<strong>Copenhagen food tour</strong> — Copenhagen by Mie (small-group, local) or 'A Taste of Denmark' (Torvehallerne)",
-    "<strong>Hamburg musical</strong> (Lion King / MJ / Tarzan / Back to the Future) — Day 1 or Day 17 evening",
+    "<strong>Hamburg musical</strong> (Lion King / MJ / Tarzan / Back to the Future) — Day 17 evening",
     "Tivoli evening — Friday Rock (Jul 17) or the free Pantomime Theatre"
   ]}
 ];
