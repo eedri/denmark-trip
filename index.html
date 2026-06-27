@@ -958,7 +958,9 @@ function placeList(items) {
 function dayShortLabel(d) {
   const day = d.match(/Day \d+/);
   const dm = d.match(/\w+, (\w+ \d+)/);
-  return { tag: day ? day[0].toUpperCase() : "", date: dm ? dm[1] : d };
+  const wd = d.match(/^(\w+),/);
+  const WEEK = { Sun: "Sunday", Mon: "Monday", Tue: "Tuesday", Wed: "Wednesday", Thu: "Thursday", Fri: "Friday", Sat: "Saturday" };
+  return { tag: day ? day[0].toUpperCase() : "", date: dm ? dm[1] : d, weekday: wd ? (WEEK[wd[1]] || wd[1]) : "" };
 }
 
 // ---------- HOME ----------
@@ -1221,7 +1223,7 @@ function renderHome() {
       <button class="daycard" onclick="openDay(${i})">
         <div class="daycard-icon" style="background:${cm.color}22;border:1px solid ${cm.color}55">${ICONS[i]}</div>
         <div class="daycard-meta">${sl.tag} · ${cm.flag}</div>
-        <div class="daycard-date">${sl.date}</div>
+        <div class="daycard-date">${sl.weekday} · ${sl.date}</div>
         <div class="daycard-title">${d.title}</div>
         <div class="daycard-drive">🕒 ${d.drive}</div>
       </button>`;
@@ -1265,7 +1267,7 @@ function dayDetailHTML(day, i) {
       <div class="dh-icon" style="background:${cm.color}22;border:1px solid ${cm.color}55">${ICONS[i]}</div>
       <div>
         <div class="dh-meta">${sl.tag} · ${cm.flag} ${cm.name}</div>
-        <div class="dh-date">${sl.date}</div>
+        <div class="dh-date">${sl.weekday} · ${sl.date}</div>
         <div class="dh-title">${day.title}</div>
       </div>
     </div>
