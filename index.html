@@ -308,6 +308,12 @@ const days = [
       { name: "Landungsbrücken & harbour", loc: "Landungsbrücken Hamburg", note: "waterfront promenade, evening stroll, Fischbrötchen" },
       { name: "Speicherstadt", loc: "Speicherstadt Hamburg", note: "UNESCO red-brick warehouse district with canals" }
     ],
+    shows: [
+      { name: "Disney's The Lion King", loc: "Stage Theater im Hafen Hamburg", note: "Hamburg's flagship musical (German), on its own harbour island reached by a little ferry — 25+ years, 11M+ guests. Tue–Sun eves + Sat/Sun matinées, from ~€74. Book ahead." },
+      { name: "MJ – The Michael Jackson Musical", loc: "Stage Theater an der Elbe Hamburg", note: "high-energy Jacko bio-musical at the riverfront Theater an der Elbe" },
+      { name: "Disney's Tarzan", loc: "Stage Theater Neue Flora Hamburg", note: "Disney musical at the Neue Flora (running through ~late 2026)" },
+      { name: "Back to the Future – The Musical", loc: "Stage Operettenhaus Hamburg", note: "the DeLorean musical at the Operettenhaus (opened Mar 2026)" }
+    ],
     reads: [
       { name: "That's What She Had — Hamburg", url: "https://thatswhatshehad.com/best-restaurants-hamburg/", note: "a local's 20 favourite Hamburg restaurants" },
       { name: "Where Goes Rose — Hamburg", url: "https://www.wheregoesrose.com/hamburg-food-coffee-guide/", note: "Hamburg food & coffee guide" }
@@ -480,6 +486,11 @@ const days = [
       { name: "Rosenborg Castle & King's Garden", loc: "Rosenborg Castle Copenhagen", note: "Renaissance castle, crown jewels, lovely park" },
       { name: "The Little Mermaid", loc: "The Little Mermaid Copenhagen", note: "the famous statue on the Langelinie waterfront" }
     ],
+    shows: [
+      { name: "Tivoli Gardens — Friday Rock & Pantomime", loc: "Tivoli Gardens Copenhagen", note: "summer program included with entry: Friday Rock concerts on the open-air stage (Fridays → Jul 17), the free 1874 Commedia dell'arte Pantomime Theatre by the lake, ballet & Sat-night fireworks" },
+      { name: "IKONO Copenhagen (immersive)", loc: "IKONO Copenhagen", note: "playful walk-through immersive art rooms — easy ~1 hr early-evening option" },
+      { name: "Improv Comedy Copenhagen (ICC)", loc: "Improv Comedy Copenhagen", note: "award-winning English-language improv theatre — cosy, spontaneous night out" }
+    ],
     spa: [
       { name: "CopenHot (outdoor harbour spa)", loc: "CopenHot Copenhagen", note: "Denmark's biggest OUTDOOR spa on Refshaleøen (next to Reffen) — firewood-heated 40°C hot tubs, sauna huts, a 'Dragon Sauna' you stoke yourself, cold-plunge tubs & even sail-your-own floating hot tubs. Booked as private units, 12:30–19:30. Most unique option — book ahead at copenhot.com." },
       { name: "La Banchina", loc: "La Banchina Copenhagen", note: "cult tiny waterside sauna + harbour plunge by a wine bar — 800 DKK / 1h45 for the whole unit (up to 8), so pricey solo but charming with company." }
@@ -521,6 +532,9 @@ const days = [
       { name: "Christiansborg Palace", loc: "Christiansborg Palace Copenhagen", note: "seat of parliament; the tower viewpoint is free" },
       { name: "Torvehallerne", loc: "Torvehallerne Copenhagen", note: "glass food market — great for lunch & coffee" },
       { name: "Canal boat tour", loc: "canal tour Nyhavn Copenhagen", note: "1-hr loop past the opera, Mermaid & Christianshavn" }
+    ],
+    activities: [
+      { name: "🍴 Copenhagen food tour (book ahead)", note: "a local-led tasting tour on a free daytime slot — best non-touristy picks: <a class='place' href='https://copenhagenbymie.com/' target='_blank' rel='noopener'>Copenhagen by Mie</a> (small-group, locally owned, 4,000+ reviews) or 'A Taste of Denmark' (the original since 2011 — 8 tastings around Torvehallerne, Arla Unika cheese). Take a midday tour so it doesn't clash with the 20:30 Alouette dinner." }
     ],
     activities: [
       { name: "Amager Fælled / Amarmino trail", note: "from DR Byen Metro into coastal meadows & birdlife — pick a short segment for an easy walk" }
@@ -768,6 +782,9 @@ const days = [
     attractions: [
       { name: "Lübeck old town (UNESCO)", loc: "Lübeck Altstadt", note: "Holstentor gate + marzipan, a gorgeous ~45-min detour off the route to Hamburg" },
       { name: "Fehmarn island", loc: "Fehmarn", note: "beaches & birdlife right where the ferry lands, if you want a final seaside stop" }
+    ],
+    shows: [
+      { name: "Hamburg musical — last-night option", loc: "Stage Theater im Hafen Hamburg", note: "you're back near Hamburg tonight (Tue) — a great slot for The Lion King, MJ, Tarzan or Back to the Future. Tue–Sun shows; book ahead. (Van goes back tomorrow morning, so park & take transit in.)" }
     ],
     notes: [ "Last night in the campervan. Stay close enough to make the noon return tomorrow comfortably." ]
   },
@@ -1109,7 +1126,10 @@ const bookNow = [
   { group: "⭐ Optional upgrades (book ahead if you want them)", items: [
     "Mölle floating sauna (Day 15)",
     "A Glasriket glass-studio session, e.g. Kosta or Målerås (Day 14)",
-    "A good last-night dinner near Puttgarden (Day 17)"
+    "A good last-night dinner near Puttgarden (Day 17)",
+    "<strong>Copenhagen food tour</strong> — Copenhagen by Mie (small-group, local) or 'A Taste of Denmark' (Torvehallerne)",
+    "<strong>Hamburg musical</strong> (Lion King / MJ / Tarzan / Back to the Future) — Day 1 or Day 17 evening",
+    "Tivoli evening — Friday Rock (Jul 17) or the free Pantomime Theatre"
   ]}
 ];
 const BN_KEY = 'trip-booknow', BN_OPEN_KEY = 'trip-booknow-open';
@@ -1284,6 +1304,7 @@ function dayDetailHTML(day, i) {
   if (day.shops && day.shops.length) html += `<div class="section"><h3>🛒 Stock Up · supermarkets</h3>${placeList(day.shops)}</div>`;
   if (day.attractions && day.attractions.length) html += `<div class="section"><h3>🎡 Attractions & Sights</h3>${placeList(day.attractions)}</div>`;
   if (day.spa && day.spa.length) html += `<div class="section"><h3>🧖 Spa & Wellness</h3>${placeList(day.spa)}</div>`;
+  if (day.shows && day.shows.length) html += `<div class="section"><h3>🎭 Shows & Immersive</h3>${placeList(day.shows)}</div>`;
 
   if (day.activities && day.activities.length) {
     html += `<div class="section"><h3>🥾 Hikes, Tours & Wildlife</h3><ul>`;
