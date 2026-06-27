@@ -655,17 +655,32 @@ const days = [
   { date: "Tue, Jul 21 · Day 10", title: "Borderland Festival", drive: "No driving — on-site", route: { label: "On-site, Alversjö" }, sleep: { status: "festival", text: "Borderland Festival camp." }, notes: ["Optional break from the playa: Skurugata — Småland's largest gorge — plus the Skuruhatt viewpoint, an easy ~2km loop ~20–25 min away (NE of Eksjö)."] },
   { date: "Wed, Jul 22 · Day 11", title: "Borderland Festival", drive: "No driving — on-site", route: { label: "On-site, Alversjö" }, sleep: { status: "festival", text: "Borderland Festival camp." }, notes: ["Optional reset run: a hot shower + dump/fresh-water fill at Eksjö Camping (~20 min), then top up at ICA Maxi Jönköping on the way back."] },
   { date: "Thu, Jul 23 · Day 12", title: "Borderland Festival", drive: "No driving — on-site", route: { label: "On-site, Alversjö" }, sleep: { status: "festival", text: "Borderland Festival camp." }, notes: ["Optional nature escape: Norra Kvill National Park — 350-year-old virgin pine forest & lily-covered lakes, ~1 hr toward Vimmerby."] },
-  { date: "Fri, Jul 24 · Day 13", title: "Borderland Festival", drive: "No driving — on-site", route: { label: "On-site, Alversjö" }, sleep: { status: "festival", text: "Borderland Festival camp." }, notes: ["Last full festival day — pace yourself, hydrate, and start a slow pack-down & MOOP sweep. Tomorrow you drive south to Glasriket."] },
+  { date: "Fri, Jul 24 · Day 13", title: "Borderland Festival", drive: "No driving — on-site", route: { label: "On-site, Alversjö" }, sleep: { status: "festival", text: "Borderland Festival camp." }, notes: ["Tomorrow (Sat) is the festival's closing day & the burn — then you leave Sunday. Keep hydrating and start a slow pack-down & MOOP sweep."] },
   {
     date: "Sat, Jul 25 · Day 14",
+    title: "Borderland — closing day & the burn",
+    drive: "No driving — on-site",
+    route: { label: "On-site, Alversjö" },
+    sleep: { status: "festival", text: "Borderland Festival camp — last night on the playa." },
+    activities: [
+      { name: "🔥 The burn", note: "the climax of the week — the effigy burn is typically tonight. Soak it in; staying through the close is exactly why you reshuffled the route." }
+    ],
+    notes: [
+      "⚠️ Confirmed online: Borderland 2026 runs Jul 20–26 — you now leave Sun Jul 26 (not Sat), so tonight's burn is in.",
+      "Pace the day, hydrate, and pre-pack what you can so tomorrow's exit is easy."
+    ]
+  },
+  {
+    date: "Sun, Jul 26 · Day 15",
     title: "Borderland → Glasriket & Åsnen National Park",
     drive: "~1.5–2 hrs · ~120 km (south through Småland)",
     legs: [
-      "🛣️ Alversjö → Kingdom of Crystal / Lake Åsnen (~1.5–2 hrs south through Småland).",
-      "🌅 Drive part of Sirkövägen — one of Småland's prettiest roads through the Åsnen archipelago."
+      "🛣️ Leave Borderland after the close (Sun) → Kingdom of Crystal / Lake Åsnen (~1.5–2 hrs south through Småland).",
+      "🌅 Drive part of Sirkövägen — one of Småland's prettiest roads through the Åsnen archipelago.",
+      "🧖 Decompress: a lakeside wood-fired sauna at Getnö (see Spa) is the perfect post-burn reset."
     ],
     route: { label: "Alversjö → Åsnen National Park / Glasriket (Småland)", dest: "Åsnen National Park, Sweden" },
-    sleep: { status: "flexible", text: "Lakeside campsite near Åsnen / Urshult or Växjö — use Campercontact/Park4Night.", coord: { lat: 56.62, lng: 14.70 } },
+    sleep: { status: "flexible", text: "Lakeside campsite near Åsnen / Urshult or Växjö — Getnö Gård (with the sauna) is the pick; or Campercontact/Park4Night.", coord: { lat: 56.62, lng: 14.70 } },
     services: [
       { name: "Camping near Åsnen / Växjö", loc: "camping Åsnen Urshult", note: "lakeside sites with water + dump service points" }
     ],
@@ -698,82 +713,60 @@ const days = [
       { name: "Campervan Sweden — Småland", url: "https://www.campervansweden.com/blog/travel-information/smaland", note: "Småland campervan guide + stops" }
     ],
     notes: [
-      "First day after the festival — ease into it with lakes and forest.",
-      "Spa: book a Kosta Boda day-spa entry + a treatment for the afternoon (you arrive from Borderland ~midday) — reserve ahead by phone/email, it's cashless."
+      "First day out of the festival — ease into it with lakes, forest & a sauna.",
+      "Getnö Gård can be tonight's lakeside camp AND your sauna — worth booking ahead.",
+      "Spa: a Kosta Boda day-spa entry + treatment is the polished alternative — reserve ahead, cashless."
     ]
   },
   {
-    date: "Sun, Jul 26 · Day 15",
-    title: "Småland → Kullaberg & the Skåne coast",
-    drive: "~2–2.5 hrs · ~180 km (to NW Skåne)",
-    legs: [ "🛣️ Åsnen/Växjö → Kullaberg peninsula, NW Skåne (~2–2.5 hrs)." ],
-    route: { label: "Åsnen → Kullaberg Nature Reserve / Mölle (NW Skåne)", dest: "Kullaberg Nature Reserve, Mölle, Sweden" },
-    sleep: { status: "flexible", text: "Campsite around Mölle / Höganäs — use Campercontact/Park4Night.", coord: { lat: 56.30, lng: 12.46 } },
-    services: [
-      { name: "Camping Mölle / Höganäs", loc: "camping Mölle Höganäs", note: "coastal sites with water + dump near Kullaberg" }
-    ],
-    shops: [
-      { name: "ICA / Coop, Höganäs", loc: "ICA Höganäs", note: "stock up before the cliffs; easy parking" }
-    ],
-    eat: [
-      { name: "Hotel Kullaberg", loc: "Hotel Kullaberg Mölle restaurant", note: "Mölle seafront bistro — Sweden's largest shrimp sandwich & moules frites; refreshed under new owners in 2025" },
-      { name: "Garage", loc: "Garage Bar Höganäs", note: "rock'n'roll burger joint in Höganäs serving some of Sweden's best burgers" },
-      { name: "Flickorna Lundgren på Skäret", loc: "Flickorna Lundgren Skäret", note: "legendary seaside café founded by seven sisters in 1938 (Skäret, by Arild) — fika with a view; seasonal hours" },
-      { name: "Ransvik Havsveranda", loc: "Ransvik Havsveranda Mölle", note: "organic sea-veranda café a 20-min walk from Mölle harbour — open weekends/summer, check hours" }
-    ],
-    attractions: [
-      { name: "Kullens fyr lighthouse", loc: "Kullens fyr", note: "Scandinavia's brightest lighthouse at the peninsula's tip (1561)" },
-      { name: "Krapperup Castle & gardens", loc: "Krapperup Castle", note: "moated castle with beautiful gardens near Mölle" },
-      { name: "Arild & Mölle villages", loc: "Arild Sweden", note: "picturesque fishing villages for coffee & lunch below the reserve" },
-      { name: "Höganäs ceramics & saluhall", loc: "Höganäs Saluhall", note: "famous stoneware outlets + a food hall" }
-    ],
-    spa: [
-      { name: "Arild Kallbadhuset", loc: "Arild Kallbadhuset Höganäs", note: "open-air cold bathhouse on the Skälderviken cliffs — swim from the rocks via a ladder, top-rated water quality. Free public sea bath, no booking" },
-      { name: "Ransvik sea bathing", loc: "Ransvik Kullaberg", note: "wild rocky swimming inside Kullaberg reserve, just N of Mölle, with the Ransvik Sea Veranda café alongside. Free, no booking" }
-    ],
-    activities: [
-      { name: "Kullaberg Nature Reserve", note: "dramatic cliffs at the tip of the Kulla peninsula — Kullaleden trails, ~20 caves, sweeping sea views" },
-      { name: "Porpoise & seal spotting", note: "one of Sweden's best spots for harbour porpoises; boat safaris run from Mölle" },
-      { name: "🎣 Fly fishing — Kulla peninsula coast (sea trout)", note: "classic Skåne saltwater sea-trout fly fishing along the Öresund/Kattegat shorelines around Mölle, Arild & Lerhamn. No licence needed for the Swedish open coast — wade rocky/weedy points on a moving tide, intermediate line." }
-    ],
-    reads: [
-      { name: "Rucksack.se — Kulla restaurants", url: "https://www.rucksack.se/en/restauranger-pa-kullahalvon/", note: "10 favourite restaurants on the Kulla peninsula" },
-      { name: "Rucksack.se — Kullaberg activities", url: "https://www.rucksack.se/en/aktiviteter-pa-kullaberg-skane/", note: "9 things to do at Kullaberg" }
-    ],
-    notes: [ "Kullaberg is free; follow Leave No Trace. Trails range easy → challenging (the Mölle–Arild headland is ~16km)." ]
-  },
-  {
     date: "Mon, Jul 27 · Day 16",
-    title: "Skåne → Helsingør ferry → toward Hamburg",
-    drive: "~3 hrs + 20-min Helsingborg–Helsingør ferry (Malmö-free)",
+    title: "Åsnen → Kullaberg → Helsingør ferry → S. Denmark",
+    drive: "~4–4.5 hrs + 20-min Helsingborg–Helsingør ferry (a big day)",
     legs: [
-      "🛣️ Mölle/Kullaberg → Helsingborg (~30 min).",
-      "⛴️ Helsingborg → Helsingør ferry (Øresundslinjen, ~20 min, very frequent, ~199 DKK/car) — bypasses Malmö entirely.",
-      "🛣️ Helsingør → south through Zealand toward S. Zealand/Falster (or just into Germany) to shorten tomorrow."
+      "🛣️ Åsnen/Växjö → Kullaberg peninsula, NW Skåne (~2–2.5 hrs).",
+      "🐬 Kullaberg half-day: cliffs, a sea bath at Arild/Ransvik, lunch in Mölle/Arild — keep it to one or two things.",
+      "🛣️ Kullaberg → Helsingborg (~30 min).",
+      "⛴️ Helsingborg → Helsingør ferry (Øresundslinjen, ~20 min, very frequent, ~199 DKK/car) — bypasses Malmö.",
+      "🛣️ Helsingør → south through Zealand toward S. Zealand/Falster to shorten tomorrow."
     ],
-    route: { label: "NW Skåne → Helsingborg–Helsingør ferry → southern Denmark", dest: "Helsingør, Denmark" },
-    sleep: { status: "flexible", text: "Campsite on Zealand/Falster or into Schleswig-Holstein — use Campercontact/Park4Night.", coord: { lat: 54.65, lng: 11.35 } },
+    route: { label: "Åsnen → Kullaberg → Helsingborg–Helsingør ferry → southern Denmark", dest: "Helsingør, Denmark" },
+    sleep: { status: "flexible", text: "Campsite on Zealand/Falster (or into Schleswig-Holstein) — use Campercontact/Park4Night.", coord: { lat: 54.65, lng: 11.35 } },
     services: [
       { name: "Camping en route (Skåne / Zealand)", loc: "camping Falster Denmark", note: "service points along the southbound route" }
     ],
     shops: [
       { name: "ICA Maxi, Helsingborg (before the ferry)", loc: "ICA Maxi Helsingborg", note: "last big Swedish shop before the ferry — large parking" }
     ],
+    eat: [
+      { name: "Hotel Kullaberg", loc: "Hotel Kullaberg Mölle restaurant", note: "Mölle seafront bistro — Sweden's largest shrimp sandwich & moules frites; a good lunch stop before the ferry" },
+      { name: "Flickorna Lundgren på Skäret", loc: "Flickorna Lundgren Skäret", note: "legendary seaside café founded by seven sisters in 1938 (by Arild) — fika with a view; seasonal hours" }
+    ],
     coffee: [
-      { name: "Koppi Roasters", loc: "Koppi Roasters Helsingborg", note: "world top-10 roaster (since 2007) by ex-barista champions — a must-stop before the ferry, Helsingborg" },
+      { name: "Koppi Roasters", loc: "Koppi Roasters Helsingborg", note: "world top-10 roaster (since 2007) — a must-stop before the ferry, Helsingborg" },
       { name: "Bruket Kaffebar", loc: "Bruket Kaffebar Helsingborg", note: "city café on Bruksgatan — specialty coffee + all-day breakfast & bakes" }
     ],
     attractions: [
-      { name: "Helsingborg — Kärnan tower", loc: "Kärnan Helsingborg", note: "medieval keep with harbour views, quick stop before the ferry" },
+      { name: "Kullens fyr lighthouse", loc: "Kullens fyr", note: "Scandinavia's brightest lighthouse at the peninsula's tip (1561)" },
+      { name: "Arild & Mölle villages", loc: "Arild Sweden", note: "picturesque fishing villages below the reserve" },
       { name: "Kronborg Castle (Helsingør)", loc: "Kronborg Castle", note: "Hamlet's UNESCO castle, right where the ferry lands in Denmark" },
       { name: "Møns Klint (detour)", loc: "Møns Klint", note: "white chalk cliffs on Møn — scenic last-Denmark stop if you route via Zealand" }
     ],
     spa: [
-      { name: "Pålsjöbaden (Helsingborg)", loc: "Pålsjöbaden Helsingborg", note: "open-air bathhouse on stilts over the sea with wood saunas & a café — Helsingborg's kallbadhus, ~25 min from Mölle and right by the ferry. Cheap, authentic, Malmö-free." }
+      { name: "Arild Kallbadhuset", loc: "Arild Kallbadhuset Höganäs", note: "open-air cliff cold bathhouse on Skälderviken — swim from the rocks, top-rated water. Free, no booking" },
+      { name: "Ransvik sea bathing", loc: "Ransvik Kullaberg", note: "wild rocky swimming in Kullaberg reserve + the Sea Veranda café. Free, no booking" },
+      { name: "Pålsjöbaden (Helsingborg)", loc: "Pålsjöbaden Helsingborg", note: "open-air kallbadhus on stilts over the sea with wood saunas & a café — right by the ferry, a perfect last Swedish dip" }
+    ],
+    activities: [
+      { name: "Kullaberg Nature Reserve", note: "dramatic cliffs at the tip of the Kulla peninsula — Kullaleden trails, ~20 caves, sea views (do a shorter loop given the ferry ahead)" },
+      { name: "Porpoise & seal spotting", note: "one of Sweden's best spots for harbour porpoises; boat safaris from Mölle if you have time before the ferry" }
+    ],
+    reads: [
+      { name: "Rucksack.se — Kullaberg activities", url: "https://www.rucksack.se/en/aktiviteter-pa-kullaberg-skane/", note: "9 things to do at Kullaberg" }
     ],
     notes: [
-      "Routed via the Helsingborg–Helsingør ferry to avoid Malmö — it's also cheaper than the Øresund Bridge (~199 vs ~455 DKK) and faster from Kullaberg.",
-      "Aim to overnight close enough to make a relaxed run to Hamburg tomorrow."
+      "⚠️ Big day — a Kullaberg morning/early afternoon, then the ferry crossing & a southbound hop. Don't over-pack it; pick one or two Kullaberg things.",
+      "Routed via the Helsingborg–Helsingør ferry to avoid Malmö — cheaper than the Øresund Bridge (~199 vs ~455 DKK) and faster from Kullaberg.",
+      "Overnight close enough to make a relaxed run to Hamburg tomorrow."
     ]
   },
   {
@@ -847,7 +840,7 @@ const days = [
 ];
 
 // Per-day metadata (parallel arrays, same order as `days`)
-const ICONS = ["✈️","🚐","🦭","🚢","🎡","🌮","🦌","🔥","🔥","🔥","🔥","🔥","🔥","🫎","🐬","⛴️","⛴️","🚆","🛫"];
+const ICONS = ["✈️","🚐","🦭","🚢","🎡","🌮","🦌","🔥","🔥","🔥","🔥","🔥","🔥","🔥","🫎","🐬","⛴️","🚆","🛫"];
 const COUNTRY = ["DE","DK","DK","DK","DK","DK","DK","SE","SE","SE","SE","SE","SE","SE","SE","DK","DE","DE","DE"];
 const COUNTRY_META = {
   DE: { flag: "🇩🇪", name: "Germany",  color: "#3a4654" },
@@ -871,9 +864,9 @@ const dayExpenses = [
   { total: "~€15",  items: ["Incidentals ~€15"] },
   { total: "~€15",  items: ["Incidentals ~€15"] },
   { total: "~€15",  items: ["Incidentals ~€15"] },
-  { total: "~€140", items: ["Fuel ~€25", "Campsite ~€30", "Moose park ~€20", "Canoe rental ~€25", "Food ~€40"], note: "Add ~€90–150 for a Kosta Boda spa treatment / massage if you book one" },
-  { total: "~€135", items: ["Fuel ~€30", "Campsite ~€30", "Porpoise safari ~€35", "Food ~€40"] },
-  { total: "~€135", items: ["Helsingborg–Helsingør ferry ~€27", "Fuel ~€40", "Campsite ~€30", "Food ~€35"] },
+  { total: "~€15",  items: ["Incidentals ~€15"], note: "Festival closing day — gift economy, ticket prepaid" },
+  { total: "~€140", items: ["Fuel ~€25", "Campsite ~€30", "Moose park ~€20", "Canoe rental ~€25", "Food ~€40"], note: "Add ~€90–150 for a Getnö or Kosta Boda sauna/spa if you book one" },
+  { total: "~€180", items: ["Fuel ~€45", "Helsingborg–Helsingør ferry ~€27", "Campsite ~€30", "Porpoise safari ~€35", "Lunch + food ~€45"] },
   { total: "~€220", items: ["Rødby–Puttgarden ferry ~€110", "Fuel ~€30", "Campsite/hotel ~€40", "Food ~€40"], note: "Ferry optional — the all-road route via Jutland avoids it" },
   { total: "~€150", items: ["Fuel (refill before return) ~€50", "ICE Hamburg→Flughafen BER (through-ticket, FEX incl.) ~€55", "Moxy shuttle ~€3.50", "Dinner ~€30"], note: "Hotel prepaid" },
   { total: "~€20",  items: ["Moxy shuttle ~€3.50", "Airport food ~€15"], note: "Flight prepaid" }
@@ -1142,14 +1135,14 @@ const bookNow = [
     "Book <strong>Kosta Boda</strong> day-spa + a treatment (Day 14) — phone/email, cashless"
   ]},
   { group: "🟢 Flexible — can wait / grab a day ahead", items: [
-    "Åsnen lakeside camp (Day 14) — Park4Night / Campercontact",
-    "Kullaberg / Mölle camp (Day 15) — wild/Park4Night fine; book a site only if you want Mölle proper",
+    "Åsnen / Getnö lakeside camp (Day 15) — Park4Night / Campercontact",
+    "Day 16 overnight: S. Zealand / Falster (Park4Night) — Kullaberg is now a half-day stop en route, no overnight there",
     "Day 16 south Zealand / Falster site — grab a day ahead",
     "Danish fishing licence — buy a day/week ticket only when you fish (<a class='place' href='https://www.fisketegn.dk' target='_blank' rel='noopener'>fisketegn.dk</a>)"
   ]},
   { group: "⭐ Optional upgrades (book ahead if you want them)", items: [
-    "<strong>Getnö Gård lakeside sauna</strong> (Day 14 — book ahead) · Arild kallbad / Ransvik sea baths (Day 15 — free)",
-    "A Glasriket glass-studio session, e.g. Kosta or Målerås (Day 14)",
+    "<strong>Getnö Gård lakeside sauna</strong> (Day 15 — book ahead) · Arild kallbad / Ransvik sea baths (Day 16 — free)",
+    "A Glasriket glass-studio session, e.g. Kosta or Målerås (Day 15)",
     "A good last-night dinner near Puttgarden (Day 17)",
     "<strong>Copenhagen food tour</strong> — Copenhagen by Mie (small-group, local) or 'A Taste of Denmark' (Torvehallerne)",
     "<strong>Hamburg musical</strong> (Lion King / MJ / Tarzan / Back to the Future) — Day 17 evening",
