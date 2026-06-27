@@ -314,6 +314,12 @@ const days = [
       { name: "Disney's Tarzan", loc: "Stage Theater Neue Flora Hamburg", note: "Disney musical at the Neue Flora (running through ~late 2026)" },
       { name: "Back to the Future – The Musical", loc: "Stage Operettenhaus Hamburg", note: "the DeLorean musical at the Operettenhaus (opened Mar 2026)" }
     ],
+    shopping: [
+      { name: "Mono Concept Store (Schanze)", loc: "Mono Concept Store Hamburg", note: "your taste exactly — Scandinavian menswear & streetwear since 2007: Norse Projects, Carhartt WIP, Samsøe & Samsøe. Men's-only Mono Room on Schulterblatt nearby" },
+      { name: "Mojo Store (Karoviertel)", loc: "Mojo Store Hamburg", note: "streetwear temple + atelier between Schanze & Karoviertel — relaxed cuts, oldschool styles" },
+      { name: "Backyard Shop", loc: "Backyard Shop Schanzenstraße Hamburg", note: "classic streetwear + modern basics on Schanzenstraße" },
+      { name: "Schanzenviertel & Karoviertel", loc: "Schulterblatt Hamburg", note: "the two indie shopping quarters — wander Schulterblatt & Marktstraße for boutiques (skip the Mönckebergstraße chains)" }
+    ],
     reads: [
       { name: "That's What She Had — Hamburg", url: "https://thatswhatshehad.com/best-restaurants-hamburg/", note: "a local's 20 favourite Hamburg restaurants" },
       { name: "Where Goes Rose — Hamburg", url: "https://www.wheregoesrose.com/hamburg-food-coffee-guide/", note: "Hamburg food & coffee guide" }
@@ -490,6 +496,14 @@ const days = [
       { name: "Tivoli Gardens — Friday Rock & Pantomime", loc: "Tivoli Gardens Copenhagen", note: "summer program included with entry: Friday Rock concerts on the open-air stage (Fridays → Jul 17), the free 1874 Commedia dell'arte Pantomime Theatre by the lake, ballet & Sat-night fireworks" },
       { name: "IKONO Copenhagen (immersive)", loc: "IKONO Copenhagen", note: "playful walk-through immersive art rooms — easy ~1 hr early-evening option" },
       { name: "Improv Comedy Copenhagen (ICC)", loc: "Improv Comedy Copenhagen", note: "award-winning English-language improv theatre — cosy, spontaneous night out" }
+    ],
+    shopping: [
+      { name: "Norse Store / Norse Projects", loc: "Norse Store Pilestræde Copenhagen", note: "bullseye for you — the flagship (Pilestræde 41) + multi-brand Norse Store (39): utilitarian Danish staples and a curated floor of high-end Japanese brands" },
+      { name: "NN07 (No Nationality 07)", loc: "NN07 store Copenhagen", note: "Japanese aesthetics × Scandinavian simplicity — durable, adventure-leaning menswear; the concept store is the best intro to the brand" },
+      { name: "Storm", loc: "Storm Store Regnegade Copenhagen", note: "Copenhagen's iconic concept store (since 2003, Store Regnegade 1) — Sacai, Wales Bonner + local heat like Soulland & Mfpen" },
+      { name: "Goods (Østerbro)", loc: "Goods Copenhagen Østerbro", note: "handpicked menswear with a Japanese streak — Nanamica (Japanese GoreTex), Zanone, Andersen-Andersen. Worth the Østerbro hop" },
+      { name: "Wardrobe 19", loc: "Wardrobe 19 Larsbjørnsstræde Copenhagen", note: "menswear essentials, boots & bags on Larsbjørnsstræde (the indie 'Pisserenden' lane)" },
+      { name: "Brands to hunt for", note: "preppy-casual Scandi labels in your lane: <strong>Les Deux, Samsøe Samsøe, Han Kjøbenhavn, Mads Nørgaard, Soulland, Berner Kühl, Séfr</strong>" }
     ],
     spa: [
       { name: "CopenHot (outdoor harbour spa)", loc: "CopenHot Copenhagen", note: "Denmark's biggest OUTDOOR spa on Refshaleøen (next to Reffen) — firewood-heated 40°C hot tubs, sauna huts, a 'Dragon Sauna' you stoke yourself, cold-plunge tubs & even sail-your-own floating hot tubs. Booked as private units, 12:30–19:30. Most unique option — book ahead at copenhot.com." },
@@ -806,6 +820,9 @@ const days = [
     ],
     services: [
       { name: "Final empty before van return", loc: "Wohnmobil Entsorgung Hamburg", note: "empty grey & black water before handing back the van — rentals often charge for dirty tanks. Check Vantopia's return tank requirements" }
+    ],
+    shopping: [
+      { name: "Berlin — Japanese/streetwear peak (optional)", loc: "Voo Store Berlin", note: "Berlin is the route's best for deep Japanese labels (visvim, Kapital…) — Voo Store (Kreuzberg) & SOTO. It's tight tonight with the early flight, but noted if you snag a free evening in town" }
     ],
     notes: [ "Dinner in the evening near the Moxy.", "Book the Hamburg→Berlin ICE in advance for a cheaper fare." ]
   },
@@ -1305,6 +1322,7 @@ function dayDetailHTML(day, i) {
   if (day.attractions && day.attractions.length) html += `<div class="section"><h3>🎡 Attractions & Sights</h3>${placeList(day.attractions)}</div>`;
   if (day.spa && day.spa.length) html += `<div class="section"><h3>🧖 Spa & Wellness</h3>${placeList(day.spa)}</div>`;
   if (day.shows && day.shows.length) html += `<div class="section"><h3>🎭 Shows & Immersive</h3>${placeList(day.shows)}</div>`;
+  if (day.shopping && day.shopping.length) html += `<div class="section"><h3>🛍️ Shopping · men's fashion</h3>${placeList(day.shopping)}</div>`;
 
   if (day.activities && day.activities.length) {
     html += `<div class="section"><h3>🥾 Hikes, Tours & Wildlife</h3><ul>`;
