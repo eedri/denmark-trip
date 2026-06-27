@@ -810,15 +810,15 @@ const days = [
     drive: "~30 min to return point, then train (no camper after)",
     legs: [
       "🚐 Return Vantopia TRAVELER to Frohmestraße 59 by 12:00 noon (opens 09:00) — return by noon for €39 discount. Check fuel & do a damage walkaround (€150 deductible).",
-      "🚇 Transit Frohmestraße 59 → Hamburg Hbf (~30 min). Arrive ~12:30.",
-      "🚆 ICE Hamburg Hbf → Berlin Hbf (~1h45m). Target ~13:00 dep → arrive ~14:45. Book ahead on bahn.de.",
-      "🚆 FEX Airport Express Berlin Hbf → BER Terminal 1 (~33 min, €5, every 15 min). Target ~15:00 → arrive BER ~15:30.",
-      "🚌 Moxy shuttle from BER: Bus Parking B02, Level E0 — every 30 min, €3.50. Arrive hotel ~16:00."
+      "🚇 Transit Frohmestraße 59 → Hamburg Hbf (~30 min). Arrive ~12:30 — ~2h before the train, so grab lunch by the Hbf (Mutterland is right there).",
+      "🚆 ICE Hamburg Hbf → Flughafen BER ✅ booked — dep 14:30 → arr 17:00. Straight to the airport (the FEX leg is included in this through-ticket).",
+      "🚌 Moxy shuttle from BER: Bus Parking B02, Level E0 — every 30 min, €3.50. Arrive hotel ~17:30."
     ],
     route: { label: "Hamburg → Berlin → Moxy Berlin Airport", dest: "Moxy Berlin Airport, Kienberger Allee 2, Schönefeld 12529, Germany" },
     booking: [
       { type: "Campervan return", text: "Vantopia TRAVELER · Frohmestraße 59, Hamburg · by 12:00 noon (€39 discount), opens 09:00" },
-      { type: "Hotel", text: "Moxy Berlin Airport, Kienberger Allee 2, Schönefeld 12529 · arrive ~16:00", conf: "see email" }
+      { type: "Train — booked ✅", text: "ICE Hamburg Hbf → Flughafen BER · Wed Jul 29 · dep 14:30 → arr 17:00 · through-ticket to the airport (FEX leg included) · confirmation in email" },
+      { type: "Hotel", text: "Moxy Berlin Airport, Kienberger Allee 2, Schönefeld 12529 · arrive ~17:30", conf: "see email" }
     ],
     services: [
       { name: "Final empty before van return", loc: "Wohnmobil Entsorgung Hamburg", note: "empty grey & black water before handing back the van — rentals often charge for dirty tanks. Check Vantopia's return tank requirements" }
@@ -870,7 +870,7 @@ const dayExpenses = [
   { total: "~€135", items: ["Fuel ~€30", "Campsite ~€30", "Porpoise safari ~€35", "Food ~€40"] },
   { total: "~€135", items: ["Helsingborg–Helsingør ferry ~€27", "Fuel ~€40", "Campsite ~€30", "Food ~€35"] },
   { total: "~€220", items: ["Rødby–Puttgarden ferry ~€110", "Fuel ~€30", "Campsite/hotel ~€40", "Food ~€40"], note: "Ferry optional — the all-road route via Jutland avoids it" },
-  { total: "~€150", items: ["Fuel (refill before return) ~€50", "ICE Hamburg→Berlin ~€50", "FEX ~€5", "Moxy shuttle ~€3.50", "Dinner ~€30"], note: "Hotel prepaid" },
+  { total: "~€150", items: ["Fuel (refill before return) ~€50", "ICE Hamburg→Flughafen BER (through-ticket, FEX incl.) ~€55", "Moxy shuttle ~€3.50", "Dinner ~€30"], note: "Hotel prepaid" },
   { total: "~€20",  items: ["Moxy shuttle ~€3.50", "Airport food ~€15"], note: "Flight prepaid" }
 ];
 
@@ -1128,7 +1128,7 @@ const bookNow = [
     "Book the <strong>Rømø seal safari</strong> — limited, tide-dependent spots",
     "✉️ <strong>Roskilde Camping</strong> (Day 4) — emailed 15→16 Jul, awaiting confirmation (mail@roskildecamping.dk). Backup: Langesø stellplads",
     "Book a <strong>Day 17 site near Hamburg</strong> + reserve a specific early <strong>Rødby–Puttgarden ferry</strong> slot",
-    "Book the <strong>Hamburg→Berlin ICE</strong> (Day 18) in advance — <a class='place' href='https://www.bahn.de/' target='_blank' rel='noopener'>bahn.de</a>",
+    "✅ <strong>Hamburg→Flughafen BER ICE</strong> booked — Wed 29 Jul, 14:30→17:00 (through-ticket, conf in email)",
     "Book <strong>Miniatur Wunderland</strong> timed ticket (Day 17 evening) if you're doing it"
   ]},
   { group: "🟠 Decide, then book", items: [
