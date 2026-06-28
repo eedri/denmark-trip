@@ -268,6 +268,7 @@
 <main>
   <section id="home"></section>
   <section id="detail" class="hidden"></section>
+  <section id="sloth" class="hidden"></section>
 </main>
 
 <footer>Tap a day for full details · est. expenses exclude prepaid van, flights & festival ticket · place names link to Google Maps</footer>
@@ -966,6 +967,7 @@ function dayShortLabel(d) {
 // ---------- HOME ----------
 const home = document.getElementById('home');
 const detail = document.getElementById('detail');
+const sloth = document.getElementById('sloth');
 let activeRegion = "ALL";
 
 // ---------- Pre-flight checklist ----------
@@ -998,7 +1000,7 @@ const checklist = [
     "EU plug adapters (Type F/K) for charging",
     "Fly-fishing kit + buy the Danish licence online — <a class='place' href='https://www.fisketegn.dk' target='_blank' rel='noopener'>fisketegn.dk</a>",
     "Water shoes for the lakes & rivers (wading + rocky/weedy shorelines)",
-    "Borderland gift-economy supplies, costumes & water (see the Day 9 survival list)"
+    "☕ <strong>Sloth Cafe kit</strong> — all coffee gear, sloth décor & gifts (see the ☕ Sloth Cafe tab), plus costumes & extra water"
   ]},
   { group: "Phone & apps", items: [
     "EU eSIM or roaming plan activated",
@@ -1248,6 +1250,14 @@ function renderHome() {
       <div id="routeMap"></div>
       <div class="map-legend">Numbered ① → ⑩ in travel order · dashed line traces the drive</div>
     </div>
+    <div class="checklist-card">
+      <button class="checklist-head" onclick="showSloth()">
+        <span class="cl-emoji">☕</span>
+        <span class="cl-title">Sloth Cafe @ Borderland</span>
+        <span class="cl-count">kit · gifts · ideas</span>
+        <span class="cl-chevron" style="transform:rotate(-90deg)">▾</span>
+      </button>
+    </div>
     ${bookNowHTML()}
     ${checklistHTML()}
     ${vanChecksHTML()}
@@ -1377,9 +1387,115 @@ function openDay(i) {
 
 function showHome() {
   detail.classList.add('hidden');
+  sloth.classList.add('hidden');
   home.classList.remove('hidden');
   document.getElementById('backBtn').classList.add('hidden');
   document.getElementById('barTitle').textContent = "🚐 Denmark & Sweden Trip";
+  window.scrollTo(0, 0);
+}
+
+// ---------- Sloth Cafe @ Borderland (gifting coffee camp) ----------
+const slothPack = [
+  { group: "☕ Coffee gear — the café kit", items: [
+    "<strong>Beans — way more than you think</strong>: cups/day × festival days, then double. Whole bean + a pre-ground backup.",
+    "Hand grinder(s) — bring a backup; manual = no power needed",
+    "Brewers for your method: V60/Chemex + filters, AeroPress, French press or moka pot",
+    "Gooseneck/stovetop kettle + a solid heat source (gas burner + plenty of gas)",
+    "<strong>Extra water just for coffee</strong> — on top of drinking water; jerry cans + a filter",
+    "Milk that survives no fridge: UHT / barista oat; a battery handheld frother",
+    "Mugs/cups — bring loads, or run 'bring your own cup' (less washing, more sustainable)",
+    "Sugar, honey, syrups, spices (cinnamon, cardamom), cocoa for variations",
+    "Scale, timer, thermometer for consistent pours",
+    "Washing-up: basin/bucket, biodegradable soap, cloths, scrubber + a grey-water pack-out plan",
+    "Serving table + cloth; chalkboard menu + chalk",
+    "Power for any electric grinder/scale: leisure battery, power bank or solar",
+    "Night-service lighting: fairy lights, lanterns, headlamps",
+    "Trash + MOOP bags — pack out ALL grounds & waste (leave no trace)",
+    "Shade/structure: gazebo or tarp + poles, guy lines & extra pegs"
+  ]},
+  { group: "🦥 Sloth camp décor & accessories", items: [
+    "Sloth plushies / hanging sloths for the tarp & trees",
+    "Sloth onesie / costume(s) for the baristas",
+    "'Sloth Cafe' banner / flag / sign",
+    "Hammock(s) — the whole vibe — + cushions, rugs, low seating",
+    "Fairy lights / lanterns for ambience",
+    "Small battery speaker + a slow, mellow playlist",
+    "Sloth stickers, pins, temporary tattoos (also giftable)",
+    "Chalkboard + chalk for the menu & sloth doodles"
+  ]}
+];
+const slothIdeas = [
+  { group: "🎁 Gifts to give (decommodification — never sell or barter)", items: [
+    "The coffee itself is the gift — give it freely",
+    "Sloth stickers, pins, patches, temporary tattoos",
+    "Hand-written affirmation / fortune cards tucked with each cup",
+    "Little treats to pair: dates, chocolate, cookies",
+    "A 'Sloth Cafe passport' + stamp for repeat visitors",
+    "Friendship bracelets / beads",
+    "Polaroids — take it and gift the photo (ask consent first)",
+    "Offer the hammock for a stranger's nap — the gift of rest"
+  ]},
+  { group: "🌿 Things to do & participate", items: [
+    "Post 'slow' service hours (lazy mornings) — sloth = unhurried, not a 24/7 grind",
+    "Run a 'brew your own' station — participation over spectating",
+    "A sunrise or sunset slow-coffee ritual",
+    "Gift coffee in the small hours / after the burn, when people need it most",
+    "Trade vibes (not money) with neighbouring camps — visit theirs, invite them in",
+    "Offer a quiet decompression corner: hammocks, naps, water",
+    "Join the build & strike; parade in sloth costumes",
+    "Nightly MOOP sweep of the café footprint; pack out every ground",
+    "Consent always — ask before photos; never share people's photos without permission"
+  ]}
+];
+const SLOTH_KEY = 'sloth-pack';
+const slothTotal = slothPack.reduce((n, g) => n + g.items.length, 0);
+function slothState() { try { return JSON.parse(localStorage.getItem(SLOTH_KEY)) || {}; } catch (e) { return {}; } }
+function slothSave(s) { localStorage.setItem(SLOTH_KEY, JSON.stringify(s)); }
+function slothHTML() {
+  const state = slothState();
+  const done = Object.values(state).filter(Boolean).length;
+  const pct = slothTotal ? Math.round(done / slothTotal * 100) : 0;
+  let body = `<div class="hero"><h1>☕ Sloth Cafe @ Borderland</h1><p>Your gifting coffee camp — pack list, décor, gifts & ways to participate. It's off-grid, cash-free & leave-no-trace, so bring everything.</p></div>`;
+  body += `<div class="checklist-card open"><div class="cl-progress"><i id="slothBar" style="width:${pct}%"></i></div><div class="checklist-body">`;
+  body += `<div style="font-size:0.78rem;color:var(--muted);margin:8px 0 0"><span id="slothCount">${done}/${slothTotal}</span> packed</div>`;
+  slothPack.forEach((g, gi) => {
+    body += `<div class="cl-group"><h4>${g.group}</h4>`;
+    g.items.forEach((it, ii) => {
+      const id = `${gi}-${ii}`;
+      const checked = !!state[id];
+      body += `<label class="cl-item ${checked ? 'done' : ''}"><input type="checkbox" ${checked ? 'checked' : ''} onchange="toggleSlothItem('${id}', this)"><span>${it}</span></label>`;
+    });
+    body += `</div>`;
+  });
+  body += `<button class="cl-reset" onclick="resetSloth()">Reset packing</button></div></div>`;
+  slothIdeas.forEach(g => {
+    body += `<div class="section"><h3>${g.group}</h3><ul>`;
+    g.items.forEach(it => { body += `<li>${it}</li>`; });
+    body += `</ul></div>`;
+  });
+  return body;
+}
+function toggleSlothItem(id, el) {
+  const s = slothState();
+  if (el.checked) s[id] = true; else delete s[id];
+  slothSave(s);
+  const done = Object.values(s).filter(Boolean).length;
+  const c = document.getElementById('slothCount'); if (c) c.textContent = `${done}/${slothTotal}`;
+  const b = document.getElementById('slothBar'); if (b) b.style.width = (slothTotal ? Math.round(done / slothTotal * 100) : 0) + '%';
+  el.closest('.cl-item').classList.toggle('done', el.checked);
+}
+function resetSloth() {
+  if (!confirm('Clear all Sloth Cafe packing ticks?')) return;
+  localStorage.removeItem(SLOTH_KEY);
+  showSloth();
+}
+function showSloth() {
+  home.classList.add('hidden');
+  detail.classList.add('hidden');
+  sloth.innerHTML = slothHTML();
+  sloth.classList.remove('hidden');
+  document.getElementById('backBtn').classList.remove('hidden');
+  document.getElementById('barTitle').textContent = "☕ Sloth Cafe @ Borderland";
   window.scrollTo(0, 0);
 }
 
