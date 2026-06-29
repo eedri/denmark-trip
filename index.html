@@ -281,13 +281,15 @@ const days = [
     drive: "No camper yet — flight + ICE train",
     legs: [
       "✈️ EL AL LY2371: TLV 06:20 → BER 09:35 (4h15m). Terminal 3 (TLV) → Terminal 1 (BER). Economy, 1 bag.",
-      "🚆 ICE 800: Berlin → Hamburg 13:35–16:10. Carriage 1, window seat, quiet zone. €80.49.",
+      "🚆 RE20: Flughafen BER 13:31 (platform 4 A-E) → Berlin Hbf 13:53 (platform 8) — was 13:35/13:58, timetable change.",
+      "🚆 ICE 800: Berlin Hbf (platform 6) → Hamburg Hbf, arrive 16:10. Carriage 1, window seat, quiet zone. €80.49.",
+      "ℹ️ Ticket is now fully flexible — any DB long-distance/regional train to Hamburg, earlier or later that day; just show your original ticket.",
       "🏨 Check in Courtyard by Marriott Hamburg City (3pm)."
     ],
     route: { label: "Berlin (BER) → Hamburg city centre", dest: "Adenauerallee 52, Hamburg, Germany" },
     booking: [
       { type: "Flight", text: "EL AL LY2371 · TLV 06:20 → BER 09:35", conf: "see email" },
-      { type: "Train", text: "ICE 800 Berlin → Hamburg · 13:35–16:10 · Carriage 1 · €80.49" },
+      { type: "Train — RE20 + ICE 800", text: "Flughafen BER 13:31 (plat 4 A-E) → Berlin Hbf 13:53 (plat 8) → ICE 800 (plat 6) → Hamburg Hbf 16:10 · Carriage 1 · €80.49 · ticket now flexible (any train, show original)" },
       { type: "Hotel", text: "Courtyard by Marriott Hamburg City, Adenauerallee 52 · Check-in 3pm", conf: "see email" }
     ],
     eat: [
@@ -315,7 +317,7 @@ const days = [
     notes: [
       "😴 Reality check: ~03:00 wake-up + flight + train means you only reach the hotel ~16:30, wiped. Make Day 1 a gentle arrival — dinner + a short Speicherstadt/Landungsbrücken stroll, not a sightseeing push.",
       "🍽️ Arrival dinner — keep it close: Mutterland is right by the Hauptbahnhof; Hobenköök is an easy walk toward the Speicherstadt. Save Jing Jing/Liberté (further out) — and the musical, Miniatur Wunderland & Schanze shopping — for your Day 17 evening back in Hamburg.",
-      "Land BER 09:35, train departs 13:35 — ~3.5h buffer for immigration, luggage and getting to the station.",
+      "Land BER 09:35; RE20 departs Flughafen BER 13:31 (plat 4 A-E) — ~3.5h buffer. With the now-flexible ticket you can grab an earlier train to Hamburg if you clear the airport quickly.",
       "Tomorrow: van pickup 10:00 in Schnelsen (Frohmestraße 59), ~25 min from the hotel."
     ]
   },
@@ -368,7 +370,8 @@ const days = [
     notes: [
       "Big travel day — pickup 10:00 then ~4 hrs of driving. Aim to arrive Ribe late afternoon.",
       "Ribe Camping booked ✅ — Pitch 325.",
-      "✅ Confirmed with Ribe Camping — Pitch 325 fits the 5.99 m van."
+      "✅ Confirmed with Ribe Camping — Pitch 325 fits the 5.99 m van.",
+      "🛣️ At pickup: note the number plate & register the camper at epass24.com for Swedish tolls — do it BEFORE crossing into Sweden (Day 8). You must DEREGISTER before returning the van (Day 18) or Vantopia charges €20. Carry your passport — DK/SE are border crossings."
     ]
   },
   {
@@ -631,7 +634,7 @@ const days = [
       { name: "Visit Sweden — vanlife guide", url: "https://visitsweden.com/what-to-do/vanlife-travel/vanlife-practical-guide/", note: "practical vanlife + allemansrätten (wild-camping) rules" }
     ],
     notes: [
-      "Øresund Bridge toll — pay by card or pre-register. Bring passports/ID, it's a border crossing.",
+      "⚠️ Register the camper at epass24.com BEFORE crossing into Sweden today (Øresund Bridge) — that's how the Swedish tolls bill to you, not Vantopia. Pay the Øresund Bridge toll by card. Bring passports/ID — it's a border crossing.",
       "The bridge lands at Malmö, but you stay on the motorway heading north toward Eksjö — no need to stop in the city.",
       "Borderland ticket/membership confirmed ✅ — keep your membership login handy (no ticket email to fall back on)."
     ]
@@ -826,7 +829,7 @@ const days = [
     shopping: [
       { name: "Berlin — Japanese/streetwear peak (optional)", loc: "Voo Store Berlin", note: "Berlin is the route's best for deep Japanese labels (visvim, Kapital…) — Voo Store (Kreuzberg) & SOTO. It's tight tonight with the early flight, but noted if you snag a free evening in town" }
     ],
-    notes: [ "Dinner in the evening near the Moxy.", "Book the Hamburg→Berlin ICE in advance for a cheaper fare." ]
+    notes: [ "⚠️ DEREGISTER the camper on epass24.com before handing it back — or Vantopia charges a €20 processing fee.", "Dinner in the evening near the Moxy." ]
   },
   {
     date: "Thu, Jul 30 · Day 19",
@@ -1077,6 +1080,7 @@ const vanChecks = [
     "⚠️ <strong>Photograph & video the whole van</strong> before signing — every existing scratch, dent & the interior. Your protection against the €150 deductible.",
     "⚠️ <strong>Confirm exact size:</strong> length (~5.99 m), height & width — write them on a sticky note for the dash (low bridges, barriers, ferry decks, parking).",
     "⚠️ <strong>Get the contract permissions in writing:</strong> crossing into <strong>Sweden</strong>, off-grid / festival parking, and whether driving on Rømø's beach is allowed (most rentals forbid sand/off-road).",
+    "📋 <strong>Note the number plate</strong> → register the camper at <a class='place' href='https://www.epass24.com' target='_blank' rel='noopener'>epass24.com</a> for Swedish tolls (before crossing into Sweden); deregister before returning the van or it's a €20 fee.",
     "<strong>Fresh-water tank capacity (litres)</strong> + how to fill — this decides the Borderland water plan. Confirm grey-water & toilet cassette: where they are and how to empty.",
     "<strong>Gas:</strong> locate LPG bottle(s), check level, learn the shut-off valve & how to swap a bottle.",
     "<strong>Leisure (habitation) battery:</strong> current charge, how it recharges (driving / hookup / solar), and how to read the level — critical for off-grid festival nights.",
@@ -1125,7 +1129,8 @@ function toggleVanCard() {
 // ---------- "Book now" action tracker ----------
 const bookNow = [
   { group: "🔴 This week — scarce / dated / gating", items: [
-    "✉️ <strong>Vantopia emailed</strong> — awaiting reply on tank capacity + permissions (Sweden / festival parking / Rømø beach)",
+    "✅ <strong>Vantopia replied</strong> — passport for DK, bridge tolls, + register at epass24 (below). Still confirm at pickup: tank capacity, Rømø beach & festival parking.",
+    "<strong>epass24.com</strong> — register the camper BEFORE entering Sweden (Day 8); DEREGISTER before van return (Day 18) or it's a €20 fee. <a class='place' href='https://www.epass24.com' target='_blank' rel='noopener'>epass24.com</a>",
     "✅ <strong>Ribe pitch 325 confirmed</strong> — fits the 5.99 m van",
     "<strong>Rømø overnight ✅ booked</strong> — Autocamperplads Oasen, 14→15 Jul",
     "Book the <strong>Rømø seal safari</strong> — limited, tide-dependent spots",
