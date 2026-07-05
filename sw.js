@@ -77,4 +77,6 @@ self.addEventListener("fetch", e => {
   } else if (url.hostname === "unpkg.com" || url.hostname === "router.project-osrm.org") {
     e.respondWith(staleWhileRevalidate(e.request, CDN, 60));
   }
+  // api.open-meteo.com is deliberately NOT intercepted: the app fetches it live and
+  // keeps its own offline copy in localStorage with an honest "updated" timestamp.
 });
